@@ -1,3 +1,4 @@
 # dotNet5784_4618
-My mini project =)
-My name is hagit <3
+My name is hagit 
+This is my mini project =)
+good luck with god's help!!:)
