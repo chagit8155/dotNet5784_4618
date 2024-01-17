@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     /// <summary>
     /// A function that creates a new object of type Task for a database
@@ -29,11 +29,12 @@ public class DependencyImplementation : IDependency
         //Entities that must not be deleted from the list ?!
         Dependency? DependencyToDelete = DataSource.Dependences.Find(x => x.Id == id);
         if (DependencyToDelete == null)
-            throw new NotImplementedException($"An object of type Dependency with such an ID={id} does not exist");
+            throw new DalDoesNotExistsException($"Dependency with such an ID={id} does not exist");
         else
             DataSource.Dependences.Remove(DependencyToDelete);
 
     }
+
     /// <summary>
     ///  The function returning a reference to an object of type Task with a certain ID, if it exists in a database, otherwise null
     /// </summary>
@@ -41,23 +42,36 @@ public class DependencyImplementation : IDependency
     /// <returns></returns>
     public Dependency? Read(int id)
     {
+        return DataSource.Dependences.FirstOrDefault(item => item?.Id == id);
 
-        foreach (var Dependency in DataSource.Dependences)
-        {
-            if (id == Dependency.Id)
-                return Dependency;
-        }
-        return null;
-        // throw new NotImplementedException();     
     }
     /// <summary>
-    /// The function returned a copy of the list of references to all objects of type Task
+    /// The method will run the Boolean function on the members of the list  and return the first object in the list on which the function returns True.
     /// </summary>
-    /// <returns></returns>
-    public List<Dependency> ReadAll()
+    /// <param name="filter"></param>
+    /// <returns> A pointer to a boolean function, a delegate of type Func </returns>
+    public Dependency? Read(Func<Dependency, bool> filter)
     {
-        return new List<Dependency>(DataSource.Dependences);
+        return DataSource.Dependences.FirstOrDefault(item => filter(item));
     }
+
+    /// <summary>
+    ///  Return the list of all objects in the list for which the function returns True. If no pointer is sent, the entire list will be returned
+    /// </summary>
+    /// <param name="filter"> A pointer to a boolean function, a delegate of type Func </param>
+    /// <returns></returns>
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Dependences
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Dependences
+               select item;
+    }
+
     /// <summary>
     /// The update function of an existing object. The update will consist of deleting the existing object with the same ID number and replacing it with a new object with the same ID number and updated fields.
     /// </summary>
@@ -68,7 +82,7 @@ public class DependencyImplementation : IDependency
         Dependency? itemToUpdate = DataSource.Dependences.Find(x => x.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new NotImplementedException($"An object of type Dependency with such an ID={item.Id} does not exist");
+            throw new DalDoesNotExistsException($"Dependency with such an ID={item.Id} does not exist");
         }
         else
         {

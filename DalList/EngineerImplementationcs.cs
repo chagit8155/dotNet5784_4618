@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class EngineerImplementationcs : IEngineer
+internal class EngineerImplementationcs : IEngineer
 {
     /// <summary>
     /// A function that creates a new object of type Engineer for a database
@@ -15,7 +15,7 @@ public class EngineerImplementationcs : IEngineer
     {
         //for entities with normal id (not auto id)
         if (Read(item.Id) is not null)
-                throw new NotImplementedException($"An object of type Engineer with ID={item.Id} already exists");
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
@@ -29,7 +29,7 @@ public class EngineerImplementationcs : IEngineer
         //Entities that must not be deleted from the list ?!
         Engineer? engineerToDelete = DataSource.Engineers.Find(x => x.Id == id);
         if (engineerToDelete == null)
-            throw new NotImplementedException($"An object of type Engineer with such an ID={id} does not exist");
+            throw new DalDoesNotExistsException($"Engineer with such an ID={id} does not exist");
         else
             DataSource.Engineers.Remove(engineerToDelete);
     }
@@ -40,22 +40,36 @@ public class EngineerImplementationcs : IEngineer
     /// <returns></returns>
     public Engineer? Read(int id)
     {
-        foreach (var engineer in DataSource.Engineers)
-        {
-            if (id == engineer.Id)
-                return engineer;
-        }
-        return null;
-        // throw new NotImplementedException();
+        return DataSource.Engineers.FirstOrDefault(item => item?.Id == id);
     }
+
     /// <summary>
-    /// The function returned a copy of the list of references to all objects of type Engineer
+    /// The method will run the Boolean function on the members of the list and return the first object in the list on which the function returns True.
     /// </summary>
-    /// <returns></returns>
-    public List<Engineer> ReadAll()
+    /// <param name="filter"></param>
+    /// <returns> A pointer to a boolean function, a delegate of type Func </returns>
+    public Engineer? Read(Func<Engineer, bool> filter)
     {
-        return new List<Engineer>(DataSource.Engineers);
+        return DataSource.Engineers.FirstOrDefault(item => filter(item));
     }
+
+    /// <summary>
+    ///  Return the list of all objects in the list for which the function returns True. If no pointer is sent, the entire list will be returned
+    /// </summary>
+    /// <param name="filter"> A pointer to a boolean function, a delegate of type Func </param>
+    /// <returns></returns>
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Engineers
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Engineers
+               select item;
+    }
+
     /// <summary>
     /// The update function of an existing object. The update will consist of deleting the existing object with the same ID number and replacing it with a new object with the same ID number and updated fields.
     /// </summary>
@@ -66,7 +80,7 @@ public class EngineerImplementationcs : IEngineer
         Engineer? itemToUpdate = DataSource.Engineers.Find(x => x.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new NotImplementedException($"An object of type Engineer with such an ID={item.Id} does not exist");
+            throw new DalDoesNotExistsException($"Engineer with such an ID={item.Id} does not exist");
         }
         else
         {

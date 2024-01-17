@@ -8,9 +8,7 @@ using System;
 public static class Initialization
 {
     //Defining a field for each interface to access the interface methods.
-    private static IEngineer? s_dalEngineer;
-    private static IDependency? s_dalDependency;
-    private static ITask? s_dalTask;
+    private static IDal? s_dal; //stage 2
     private static readonly Random s_rand = new(); //Field for the random data draws
 
     /// <summary>
@@ -32,13 +30,13 @@ public static class Initialization
             EngineerExperience _level;
             do
                 _id = s_rand.Next(200000000, 400000000);
-            while (s_dalEngineer!.Read(_id) != null);//Make sure that this fusion object does not already exist in the list
+            while (s_dal!.Engineer.Read(_id) != null);//Make sure that this fusion object does not already exist in the list
 
             _cost = s_rand.Next(100, 500);
             _level = (EngineerExperience)s_rand.Next(0, 4);
             _email = _name.Replace(" ", "") + "@gmail.com";
             Engineer newEngineer = new(_id, _name, _cost, _email, _level);
-            s_dalEngineer!.Create(newEngineer);
+            s_dal!.Engineer.Create(newEngineer); //stage 2
         }
     }
     /// <summary>
@@ -53,14 +51,14 @@ public static class Initialization
 
             _dependentTask = s_rand.Next(1, 18);
             _dependsOnTask = s_rand.Next(1, 18);
-            Dependency newDepn = new Dependency() { DependentTask = _dependentTask, DependsOnTask = _dependsOnTask };
-            s_dalDependency!.Create(newDepn);
+            Dependency newDepn = new() { DependentTask = _dependentTask, DependsOnTask = _dependsOnTask };
+            s_dal!.Dependency.Create(newDepn); //stage 2
         }
 
         Dependency newDep = new() { DependentTask = 19, DependsOnTask = 5 }; //There must be at least two tasks whose dependent lists are the same.
-        s_dalDependency!.Create(newDep);
+        s_dal!.Dependency.Create(newDep); //stage 2
         newDep = new Dependency() { DependentTask = 20, DependsOnTask = 5 };
-        s_dalDependency!.Create(newDep);
+        s_dal!.Dependency.Create(newDep); //stage 2
     }
 
     /// <summary>
@@ -90,7 +88,7 @@ public static class Initialization
                 "Technological Upgrade",
                 "Code Stability",
                 "Bug Tracking",
-                "Risk Analysis"               
+                "Risk Analysis"
               };
 
         string[] taskDescriptions =
@@ -117,16 +115,16 @@ public static class Initialization
                 ,"Bug Tracking: Implementing a bug tracking and error management system."
                 ,"The project's risk analysis"
         };
-        DateTime startDate = new(2024, 1, 15); 
+        DateTime startDate = new(2024, 1, 15);
         for (int i = 0; i < taskAlias.Length; i++)
         {
             EngineerExperience _copmlexity = (EngineerExperience)s_rand.Next(0, 4);
             int day = s_rand.Next(3, 21);
-            int month = s_rand.Next(1, 12);
+            // int month = s_rand.Next(1, 12);
             DateTime _creatAtDate = startDate.AddDays(day);
-            DateTime _scheduledDate = startDate.AddMonths(month);
-            Task newTa = new() { Alias = taskAlias[i], Description = taskDescriptions[i], CreatedAtDate = _creatAtDate, ScheduledDate = _scheduledDate, Copmlexity = _copmlexity };
-            s_dalTask!.Create(newTa);
+            // DateTime _scheduledDate = startDate.AddMonths(month);
+            Task newTa = new() { Alias = taskAlias[i], Description = taskDescriptions[i], CreatedAtDate = _creatAtDate, /*ScheduledDate = _scheduledDate,*/  Copmlexity = _copmlexity };
+            s_dal!.Task.Create(newTa); //stage 2
         }
     }
     //.... להוסיף עוד לבנאי?
@@ -137,11 +135,9 @@ public static class Initialization
     /// <param name="dalDependency"></param>
     /// <param name="dalTask"></param>
     /// <exception cref="NullReferenceException"></exception>
-    public static void Do(IEngineer? dalEngineer, IDependency? dalDependency, ITask? dalTask)
+    public static void Do(IDal dal)
     {
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
         //Calling all private methods for initializing all lists
         CreateEngineers();
         CreateDependences();
