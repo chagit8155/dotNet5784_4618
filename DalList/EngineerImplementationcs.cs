@@ -10,8 +10,7 @@ internal class EngineerImplementationcs : IEngineer
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public int Create(Engineer item)
+    public int Create(DO.Engineer item)
     {
         //for entities with normal id (not auto id)
         if (Read(item.Id) is not null)
@@ -23,22 +22,29 @@ internal class EngineerImplementationcs : IEngineer
     /// A function for deleting an existing object with a certain ID, from the list of objects of type Engineer
     /// </summary>
     /// <param name="id"></param>
-    /// <exception cref="NotImplementedException"></exception>
     public void Delete(int id)
     {
         //Entities that must not be deleted from the list ?!
-        Engineer? engineerToDelete = DataSource.Engineers.Find(x => x.Id == id);
+        DO.Engineer? engineerToDelete = DataSource.Engineers.Find(x => x.Id == id);
         if (engineerToDelete == null)
             throw new DalDoesNotExistsException($"Engineer with such an ID={id} does not exist");
         else
             DataSource.Engineers.Remove(engineerToDelete);
     }
     /// <summary>
+    /// A method that deleted all the data of the entity
+    /// </summary>
+    public void DeleteAll()
+    {
+      //  throw new NotImplementedException();
+    }
+
+    /// <summary>
     /// The function returning a reference to an object of type Engineer with a certain ID, if it exists in a database, otherwise null
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Engineer? Read(int id)
+    public DO.Engineer? Read(int id)
     {
         return DataSource.Engineers.FirstOrDefault(item => item?.Id == id);
     }
@@ -48,7 +54,7 @@ internal class EngineerImplementationcs : IEngineer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns> A pointer to a boolean function, a delegate of type Func </returns>
-    public Engineer? Read(Func<Engineer, bool> filter)
+    public DO.Engineer? Read(Func<Engineer, bool> filter)
     {
         return DataSource.Engineers.FirstOrDefault(item => filter(item));
     }
@@ -58,7 +64,7 @@ internal class EngineerImplementationcs : IEngineer
     /// </summary>
     /// <param name="filter"> A pointer to a boolean function, a delegate of type Func </param>
     /// <returns></returns>
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    public IEnumerable<DO.Engineer?> ReadAll(Func<DO.Engineer, bool>? filter = null)
     {
         if (filter != null)
         {
@@ -74,10 +80,9 @@ internal class EngineerImplementationcs : IEngineer
     /// The update function of an existing object. The update will consist of deleting the existing object with the same ID number and replacing it with a new object with the same ID number and updated fields.
     /// </summary>
     /// <param name="item"></param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void Update(Engineer item)
+    public void Update(DO.Engineer item)
     {
-        Engineer? itemToUpdate = DataSource.Engineers.Find(x => x.Id == item.Id);
+        DO.Engineer? itemToUpdate = DataSource.Engineers.Find(x => x.Id == item.Id);
         if (itemToUpdate == null)
         {
             throw new DalDoesNotExistsException($"Engineer with such an ID={item.Id} does not exist");

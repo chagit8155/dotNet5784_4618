@@ -29,5 +29,12 @@ public class DalDeletionImpossibleException : Exception
 }
 
 
+/// <summary>
+/// Exception for fail to load xml file
+/// </summary>
 
-
+[Serializable]
+public class DalXMLFileLoadCreateException : Exception
+{
+    public DalXMLFileLoadCreateException(string? message) : base(message) { }
+}

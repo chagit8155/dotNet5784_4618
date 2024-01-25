@@ -1,13 +1,18 @@
 ﻿namespace DalTest;
+using DalXml;
 using DalApi;
 using DO;
 using System;
+using Dal;
+
+using System.Xml.Linq;
+
 /// <summary>
-/// Access the data lists of each entity
+/// Access the data of each entity
 /// </summary>
 public static class Initialization
 {
-    //Defining a field for each interface to access the interface methods.
+    //Defining a field for interface to access the interface methods.
     private static IDal? s_dal; //stage 2
     private static readonly Random s_rand = new(); //Field for the random data draws
 
@@ -30,13 +35,13 @@ public static class Initialization
             EngineerExperience _level;
             do
                 _id = s_rand.Next(200000000, 400000000);
-            while (s_dal!.Engineer.Read(_id) != null);//Make sure that this fusion object does not already exist in the list
+            while (s_dal!.Engineer.Read(_id) != null); // Make sure that this fusion object does not already exist in the list
 
             _cost = s_rand.Next(100, 500);
             _level = (EngineerExperience)s_rand.Next(0, 4);
             _email = _name.Replace(" ", "") + "@gmail.com";
             Engineer newEngineer = new(_id, _name, _cost, _email, _level);
-            s_dal!.Engineer.Create(newEngineer); //stage 2
+            s_dal!.Engineer.Create(newEngineer); // stage 2
         }
     }
     /// <summary>
@@ -52,7 +57,7 @@ public static class Initialization
             _dependentTask = s_rand.Next(1, 18);
             _dependsOnTask = s_rand.Next(1, 18);
             Dependency newDepn = new() { DependentTask = _dependentTask, DependsOnTask = _dependsOnTask };
-            s_dal!.Dependency.Create(newDepn); //stage 2
+            s_dal!.Dependency.Create(newDepn); // stage 2
         }
 
         Dependency newDep = new() { DependentTask = 19, DependsOnTask = 5 }; //There must be at least two tasks whose dependent lists are the same.
@@ -127,19 +132,17 @@ public static class Initialization
             s_dal!.Task.Create(newTa); //stage 2
         }
     }
-    //.... להוסיף עוד לבנאי?
-    /// <summary>
+
+    /// <summary>//Calling all private methods for initializing all lists
     /// A public method, which will schedule the private methods we prepared and trigger the initialization of the lists
     /// </summary>
-    /// <param name="dalEngineer"></param>
-    /// <param name="dalDependency"></param>
-    /// <param name="dalTask"></param>
-    /// <exception cref="NullReferenceException"></exception>
     public static void Do(IDal dal)
     {
         s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
-        //Calling all private methods for initializing all lists
-        CreateEngineers();
+        //XElement? Item = new XElement("config",
+        //   new XElement("NextDependencyId", 1),
+        //   new XElement("NextTaskId", 1));
+        CreateEngineers();   
         CreateDependences();
         CreateTasks();
     }

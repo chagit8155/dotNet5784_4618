@@ -23,7 +23,6 @@ internal class DependencyImplementation : IDependency
     /// A function for deleting an existing object with a certain ID, from the list of objects of type Task
     /// </summary>
     /// <param name="id"></param>
-    /// <exception cref="NotImplementedException"></exception>
     public void Delete(int id)
     {
         //Entities that must not be deleted from the list ?!
@@ -34,6 +33,14 @@ internal class DependencyImplementation : IDependency
             DataSource.Dependences.Remove(DependencyToDelete);
 
     }
+    /// <summary>
+    /// A method that deleted all the data of the entity
+    /// </summary>
+    public void DeleteAll()
+    {
+      //  throw new NotImplementedException();
+    }
+   
 
     /// <summary>
     ///  The function returning a reference to an object of type Task with a certain ID, if it exists in a database, otherwise null
@@ -76,7 +83,6 @@ internal class DependencyImplementation : IDependency
     /// The update function of an existing object. The update will consist of deleting the existing object with the same ID number and replacing it with a new object with the same ID number and updated fields.
     /// </summary>
     /// <param name="item"></param>
-    /// <exception cref="NotImplementedException"></exception>
     public void Update(Dependency item)
     {
         Dependency? itemToUpdate = DataSource.Dependences.Find(x => x.Id == item.Id);

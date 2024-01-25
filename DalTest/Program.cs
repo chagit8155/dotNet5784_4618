@@ -2,25 +2,21 @@
 using Dal;
 using DalApi;
 using DO;
-using System.Diagnostics.Metrics;
-using System.Dynamic;
-using System.Reflection.Emit;
-using System.Xml.Linq;
+using System.CodeDom.Compiler;
+using System;
 
 internal class Program
 {
-    static readonly IDal s_dal = new DalList(); //stage 2
-    //private static ITask? s_dalTask = new TaskImplementation();
-    //private static IEngineer? s_dalEngineer = new EngineerImplementationcs();
-    //private static IDependency? s_dalDependency = new DependencyImplementation();
+    // static readonly IDal s_dal = new DalList(); //stage 2
+    static readonly IDal s_dal = new DalXml(); //stage 3
 
     public static void Main(string[] args)
     {
         try
         {
-            Initialization.Do(s_dal); //stage 2
+        //    Initialization.Do(s_dal); //stage 2
             mainMenuDisplay();
-           // Console.ReadLine();
+            // Console.ReadLine();
         }
         catch (Exception ex)
         {
@@ -38,21 +34,38 @@ internal class Program
             bool isNotExit = true;
             while (isNotExit)
             {
-                Console.Clear();
+              //  Console.Clear();
                 Console.WriteLine("========== Main Menu ==========");
                 Console.WriteLine("Hey, select an entity you want to check:");
                 Console.WriteLine("Exit main menu -> enter 0");
                 Console.WriteLine("Entity Engineer -> enter 1");
                 Console.WriteLine("Entity Dependency -> enter 2");
-                Console.WriteLine("Entity Task -> enter 3");                
+                Console.WriteLine("Entity Task -> enter 3");
+                Console.WriteLine("Data Initialization -> enter 4");
                 string choose = Console.ReadLine()!;
                 MainMenu chooseToString = (MainMenu)int.Parse(choose);
+                if (chooseToString == MainMenu.Initialization)
+                {
+                    Console.WriteLine("Would you like to create Initial data? (Y/N)"); //stage 3
+                    string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+                    if (ans == "Y") //stage 3
+                    {
+                        deletedAllData();
+                        Initialization.Do(s_dal); //stage 2
+                        Console.WriteLine("The initialization is done.");
+                        continue;
+
+                    }
+
+                }
+
                 if (chooseToString != MainMenu.Exit)
                     subMenuDisplay(chooseToString);
-                else 
+                else
                 {
                     isNotExit = false;
-                }                   
+                }
+
             }
         }
         catch (Exception ex)
@@ -109,11 +122,11 @@ internal class Program
                         break;
 
                     default:
-                        break;                       
+                        break;
                 }
             }
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
@@ -123,7 +136,7 @@ internal class Program
     /// Add method of some received entity
     /// </summary>
     /// <param name="entity"></param>
-     static void createEntity(MainMenu entity)
+    static void createEntity(MainMenu entity)
     {
 
         switch (entity)
@@ -155,15 +168,15 @@ internal class Program
         Console.WriteLine("Enter Dependent Task, and the Depends On Task");
         int _dependentTask = int.Parse(Console.ReadLine() ?? "0");
         int _dependsOnTask = int.Parse(Console.ReadLine() ?? "0");
-       // Calling the constructor action with all the variables and returning the object
-        Dependency newDep = new (0, _dependentTask, _dependsOnTask);
+        // Calling the constructor action with all the variables and returning the object
+        Dependency newDep = new(0, _dependentTask, _dependsOnTask);
         return newDep;
     }
     /// <summary>
     ///Helper method, Addition method of an engineer entity
     /// </summary>
     /// <returns></returns>
-    
+
     static Engineer addEngineer()
     {
         //Receiving the data from the user and inserting it into the variables
@@ -178,7 +191,7 @@ internal class Program
         Console.WriteLine("Enter the Level of the engineer");
         EngineerExperience _level = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
         // Calling the constructor action with all the variables and returning the object
-        Engineer newEng = new (_id, _name, _cost, _email, _level);
+        Engineer newEng = new(_id, _name, _cost, _email, _level);
         return newEng;
     }
 
@@ -230,7 +243,7 @@ internal class Program
         Console.WriteLine("Enter remarks: (possible)");
         string _remarks = Console.ReadLine() ?? "";
         //A constructive call to action with all variables and returning the object
-        DO.Task newTask = new (0, _engineerId, _isMileStone, _alias, _description, _createdInDate, _scheduledDate, _startDate, _requiredEffortTime, _complexity, _deadline, _completeDate, _deliverables, _remarks);
+        DO.Task newTask = new(0, _engineerId, _isMileStone, _alias, _description, _createdInDate, _scheduledDate, _startDate, _requiredEffortTime, _complexity, _deadline, _completeDate, _deliverables, _remarks);
         return newTask;
     }
 
@@ -343,7 +356,6 @@ internal class Program
     /// A method to delete an object of some entity received as a parameter
     /// </summary>
     /// <param name="entity"></param>
-    /// <exception cref="Exception"></exception>
     static void deleteEntity(MainMenu entity)
     {
         switch (entity)
@@ -375,6 +387,15 @@ internal class Program
             default:
                 break;
         }
+    }
+    /// <summary>
+    /// A method that deleted all the data of the entities
+    /// </summary>
+    static void deletedAllData()
+    {
+        s_dal.Dependency.DeleteAll();
+        s_dal.Engineer.DeleteAll();
+        s_dal.Task.DeleteAll();
     }
 }
 // Hey Sara, I hope you are having a good day!:)

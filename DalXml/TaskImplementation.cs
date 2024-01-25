@@ -1,8 +1,14 @@
 ﻿namespace Dal;
 using DalApi;
-using DO;//<ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+using DO;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+
 internal class TaskImplementation : ITask
 {
+    readonly string s_tasks_xml = "tasks";
+
     /// <summary>
     /// A function that creates a new object of type Task for a database
     /// </summary>
@@ -11,9 +17,11 @@ internal class TaskImplementation : ITask
     public int Create(DO.Task item)
     {
         //for entities with auto id
-        int autoId = DataSource.Config.NextTaskId;
-        DO.Task itemCopy = item with { Id = autoId };
-        DataSource.Tasks.Add(itemCopy);
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
+        int autoId = Config.NextTaskId;
+        Task itemCopy = item with { Id = autoId };
+        Tasks.Add(itemCopy);
+        XMLTools.SaveListToXMLSerializer<DO.Task>(Tasks, s_tasks_xml);
         return autoId;
     }
 
@@ -23,19 +31,20 @@ internal class TaskImplementation : ITask
     /// <param name="id"></param>
     public void Delete(int id)
     {
-        //Entities that must not be deleted from the list ?!
-        DO.Task? TaskToDelete = DataSource.Tasks.Find(x => x.Id == id);
-        if (TaskToDelete == null)
-            throw new DalDoesNotExistsException($"Task with such an ID={id} does not exist");
-        else
-            DataSource.Tasks.Remove(TaskToDelete);
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
+        if (Tasks.RemoveAll(x => x.Id == id) == 0)
+            throw new DalDoesNotExistsException($"Task with ID={id} does Not exist");
+        XMLTools.SaveListToXMLSerializer<DO.Task>(Tasks, s_tasks_xml);
     }
+
     /// <summary>
     /// A method that deleted all the data of the entity
     /// </summary>
-    public void DeleteAll() 
+    public void DeleteAll()
     {
-       // throw new NotImplementedException();
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
+        Tasks.Clear();
+        XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);
     }
 
     /// <summary>
@@ -43,9 +52,10 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task? Read(int id)
+    public DO.Task? Read(int id)
     {
-        return DataSource.Tasks.FirstOrDefault(item => item?.Id == id);
+        List<DO.Task> tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
+        return tasks.FirstOrDefault(x => x?.Id == id);
     }
 
     /// <summary>
@@ -53,21 +63,25 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="filter"></param>
     /// <returns> A pointer to a boolean function, a delegate of type Func </returns>
-    public Task? Read(Func<Task, bool> filter)
+    public DO.Task? Read(Func<DO.Task, bool> filter)
     {
-        return DataSource.Tasks.FirstOrDefault(item => filter(item));
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
+        return Tasks.FirstOrDefault(item => filter!(item));
+
     }
+
     /// <summary>
     ///  Return the list of all objects in the list for which the function returns True. If no pointer is sent, the entire list will be returned
     /// </summary>
     /// <param name="filter"> A pointer to a boolean function, a delegate of type Func </param>
     /// <returns></returns>
-    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+    public IEnumerable<DO.Task?> ReadAll(Func<DO.Task, bool>? filter = null)
     {
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
         if (filter == null)
-            return DataSource.Tasks.Select(item => item);
+            return Tasks.Select(item => item);
         else
-            return DataSource.Tasks.Where(filter);
+            return Tasks.Where(filter);
     }
 
     /// <summary>
@@ -76,16 +90,15 @@ internal class TaskImplementation : ITask
     /// <param name="item"></param>
     public void Update(DO.Task item)
     {
-        DO.Task? itemToUpdate = DataSource.Tasks.Find(x => x.Id == item.Id);
-        if (itemToUpdate == null)
-        {
-            throw new DalDoesNotExistsException($"Task with such an ID={item.Id} does not exist");
-        }
-        else
-        {
-            DataSource.Tasks.Remove(itemToUpdate);
-            DataSource.Tasks.Add(item);
-        }
-    }
-}
 
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
+        if (Tasks.RemoveAll(it => it.Id == item.Id) == 0)
+            throw new DalDoesNotExistsException($"Task with ID={item.Id} does not exists");
+        //add
+        Tasks.Add(item);
+        XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);
+    }
+
+
+  
+}
