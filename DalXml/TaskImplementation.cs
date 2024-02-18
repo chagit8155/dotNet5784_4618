@@ -1,6 +1,5 @@
 ﻿namespace Dal;
 using DalApi;
-using DO;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -17,11 +16,11 @@ internal class TaskImplementation : ITask
     public int Create(DO.Task item)
     {
         //for entities with auto id
-        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
         int autoId = Config.NextTaskId;
-        Task itemCopy = item with { Id = autoId };
+        DO.Task itemCopy = item with { Id = autoId };
         Tasks.Add(itemCopy);
-        XMLTools.SaveListToXMLSerializer<DO.Task>(Tasks, s_tasks_xml);
+        XMLTools.SaveListToXMLSerializer<DO.Task>(Tasks,s_tasks_xml);
         return autoId;
     }
 
@@ -31,9 +30,9 @@ internal class TaskImplementation : ITask
     /// <param name="id"></param>
     public void Delete(int id)
     {
-        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
+        List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
         if (Tasks.RemoveAll(x => x.Id == id) == 0)
-            throw new DalDoesNotExistsException($"Task with ID={id} does Not exist");
+            throw new DO.DalDoesNotExistsException($"Task with ID={id} does Not exist");
         XMLTools.SaveListToXMLSerializer<DO.Task>(Tasks, s_tasks_xml);
     }
 
@@ -93,7 +92,7 @@ internal class TaskImplementation : ITask
 
         List<DO.Task> Tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_tasks_xml);
         if (Tasks.RemoveAll(it => it.Id == item.Id) == 0)
-            throw new DalDoesNotExistsException($"Task with ID={item.Id} does not exists");
+            throw new DO.DalDoesNotExistsException($"Task with ID={item.Id} does not exists");
         //add
         Tasks.Add(item);
         XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);

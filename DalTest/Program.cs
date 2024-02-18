@@ -1,20 +1,20 @@
 ﻿namespace DalTest;
-using Dal;
 using DalApi;
 using DO;
 using System;
 
+
 internal class Program
 {
     // static readonly IDal s_dal = new DalList(); //stage 2
-    static readonly IDal s_dal = new DalXml(); //stage 3
-
+    // static readonly IDal s_dal = new DalXml(); //stage 3
+    static readonly IDal s_dal = Factory.Get; //stage 4, Initializes the appropriate class according to the configuration file
     public static void Main(string[] args)
     {
         try
         {
-        //    Initialization.Do(s_dal); //stage 2
-            mainMenuDisplay();
+            //Initialization.Do(s_dal); //stage 2
+            showMainMenu();
             // Console.ReadLine();
         }
         catch (Exception ex)
@@ -26,14 +26,14 @@ internal class Program
     /// <summary>
     /// A method that displays a main menu
     /// </summary>
-    static void mainMenuDisplay()
+    static void showMainMenu()
     {
         try
         {
             bool isNotExit = true;
             while (isNotExit)
             {
-              //  Console.Clear();
+                //  Console.Clear();
                 Console.WriteLine("========== Main Menu ==========");
                 Console.WriteLine("Hey, select an entity you want to check:");
                 Console.WriteLine("Exit main menu -> enter 0");
@@ -43,28 +43,25 @@ internal class Program
                 Console.WriteLine("Data Initialization -> enter 4");
                 string choose = Console.ReadLine()!;
                 MainMenu chooseToString = (MainMenu)int.Parse(choose);
-                if (chooseToString == MainMenu.Initialization)
+                if (chooseToString == MainMenu.Initialization) //if the user entered 4
                 {
                     Console.WriteLine("Would you like to create Initial data? (Y/N)"); //stage 3
                     string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
                     if (ans == "Y") //stage 3
                     {
-                        deletedAllData();
-                        Initialization.Do(s_dal); //stage 2
+                        deletedAllData(); //delete all the data in the xml files
+                        Initialization.Do(); //stage 4 
                         Console.WriteLine("The initialization is done.");
                         continue;
-
                     }
-
+                    else if (ans == "N") { continue; }
                 }
-
                 if (chooseToString != MainMenu.Exit)
                     subMenuDisplay(chooseToString);
                 else
                 {
                     isNotExit = false;
                 }
-
             }
         }
         catch (Exception ex)

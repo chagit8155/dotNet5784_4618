@@ -20,7 +20,7 @@
 public record Task
 (
      int Id, 
-     int EngineerId,
+     int? EngineerId = null,
      bool IsMilestone = false,
      string? Alias = null,
      string? Description = null,
@@ -35,8 +35,8 @@ public record Task
      string? Remarks = null    
     )
 {
-    public Task() : this(0,0) { }//empty ctor 
-//    public Task() : this(Id: 0, Alias: "", Description: "", CreatedAtDate: DateTime.Now) { }
+  //  public Task() : this(0,0) { }//empty ctor 
+    public Task() : this(Id: 0, Alias: "", Description: "", CreatedAtDate: DateTime.Now) { }
     public bool ShouldSerializeScheduledDate() { return ScheduledDate.HasValue; }
     public bool ShouldSerializeStartDate() { return StartDate.HasValue; }
     public bool ShouldSerializeRequiredEffortTime() { return RequiredEffortTime.HasValue; }
@@ -44,7 +44,7 @@ public record Task
     public bool ShouldSerializeCompleteDate() { return CompleteDate.HasValue; }
     public bool ShouldSerializeDeliverables() { return !string.IsNullOrEmpty(Deliverables); }
     public bool ShouldSerializeRemarks() { return !string.IsNullOrEmpty(Remarks); }
-//    public bool ShouldSerializeEngineerId() { return EngineerId.HasValue; }
+    public bool ShouldSerializeEngineerId() { return EngineerId.HasValue; }
   //  public bool ShouldSerializeComplexity() { return Copmlexity.HasValue; }
 
 }
