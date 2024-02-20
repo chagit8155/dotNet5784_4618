@@ -7,5 +7,7 @@ public interface IBl
    // public DateTime? EndProjectDate { get; set; } //
     public BO.ProjectStatus GetProjectStatus();
     public void CreateSchedule(BO.CreateScheduleOption option = BO.CreateScheduleOption.Automatically, int taskId = -1);
+    public void InitializeDB();
+    public void ResetDB();
 }
 

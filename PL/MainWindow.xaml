@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <!--Button to display the engineer list window-->
+        <Button Click="btnEngineers_Click" Content="Handle Engineers" HorizontalAlignment="Left" Height="50" Width="113" Margin="490,266,0,117" RenderTransformOrigin="-0.76,0.465"/>
+        <!--Button for initializing the database-->
+        <Button Click="btnInitialize_Click" Content="initialization" HorizontalAlignment="Center" Height="50" Width="112" Margin="0,266,0,117"/>
+        <!--Button to reset database-->
+        <Button Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" Height="50" Width="112" Margin="183,266,0,117" RenderTransformOrigin="0.591,0.506"/>
 
     </Grid>
 </Window>

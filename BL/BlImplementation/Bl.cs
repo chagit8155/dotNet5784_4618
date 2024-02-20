@@ -11,6 +11,10 @@ internal class Bl : IBl
     public DateTime? StartProjectDate { get => _dal.StartProjectDate; set => _dal.StartProjectDate = value; }
 
     //   public DateTime? EndProjectDate { get => EndProjectDate; init => EndProjectDate = value; }
+    public void InitializeDB() => DalTest.Initialization.Do();
+    public void ResetDB() => DalTest.Initialization.Reset();
+
+
 
     /// <summary>
     /// Retrieves the status of the project.
