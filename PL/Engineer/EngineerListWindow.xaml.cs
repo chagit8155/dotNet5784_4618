@@ -29,4 +29,9 @@ public partial class EngineerListWindow : Window
              s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
 
     }
+
+    private void btnAddEngineer_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerWindow().ShowDialog();
+    }
 }
