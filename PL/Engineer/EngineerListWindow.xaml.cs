@@ -5,8 +5,10 @@ namespace PL.Engineer;
 /// Interaction logic for EngineerListWindow.xaml
 /// </summary>
 public partial class EngineerListWindow : Window
-{
+{  
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
+   
     public IEnumerable<BO.Engineer> EngineerList
     {
         get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
@@ -18,5 +20,13 @@ public partial class EngineerListWindow : Window
     {
         InitializeComponent();
         EngineerList = s_bl?.Engineer.ReadAll()!;
+    }
+  
+
+    private void cbEngineerExperienceSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        EngineerList = (Level == BO.EngineerExperience.None) ?
+             s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
+
     }
 }

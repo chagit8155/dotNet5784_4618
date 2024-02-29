@@ -54,7 +54,7 @@ internal class Program //Bl
                     Console.WriteLine("Enter start project Date:");
                     DateTime start = DateTime.TryParse(Console.ReadLine(), out DateTime st) ? st : throw new BO.BlInvalidInputFormatException("Enter in dateTime format");
                     s_bl.StartProjectDate = start;
-                    XElement root=  XMLTools.LoadListFromXMLElement("data-config").Element("StartProjectDate")!;
+                    XElement root = XMLTools.LoadListFromXMLElement("data-config").Element("StartProjectDate")!;
                     root.Value = s_bl.StartProjectDate.ToString()!;
                     XMLTools.SaveListToXMLElement(root, "data-config");
                     Console.WriteLine("If you want to create a date manually, then enter an ID-Task , if not enter -1");

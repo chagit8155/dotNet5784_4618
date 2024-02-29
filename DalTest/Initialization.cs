@@ -59,9 +59,9 @@ public static class Initialization
         //s_dal!.Dependency.Create(newDep); //stage 2
         //newDep = new Dependency() { DependentTask = 20, DependsOnTask = 5 };
         //s_dal!.Dependency.Create(newDep); //stage 2
-   //     s_dal!.Dependency.Create(new DO.Dependency(0, 1, 2)); // User Interface Development depends on Task Management System Development
-     //   s_dal!.Dependency.Create(new DO.Dependency(0, 1, 3)); // User Interface Development depends on Project Tracking
-       // s_dal!.Dependency.Create(new DO.Dependency(0, 1, 4)); // User Interface Development depends on Scheduler
+        //     s_dal!.Dependency.Create(new DO.Dependency(0, 1, 2)); // User Interface Development depends on Task Management System Development
+        //   s_dal!.Dependency.Create(new DO.Dependency(0, 1, 3)); // User Interface Development depends on Project Tracking
+        // s_dal!.Dependency.Create(new DO.Dependency(0, 1, 4)); // User Interface Development depends on Scheduler
         s_dal!.Dependency.Create(new DO.Dependency(0, 2, 7)); // Task Management System Development depends on Task Assignment
         s_dal!.Dependency.Create(new DO.Dependency(0, 2, 8)); // Task Management System Development depends on Document Management
         s_dal!.Dependency.Create(new DO.Dependency(0, 2, 11)); // Task Management System Development depends on Task Notifications System
@@ -94,8 +94,8 @@ public static class Initialization
         s_dal!.Dependency.Create(new DO.Dependency(0, 3, 2)); // Project Tracking depends on Task Management System Development
         s_dal!.Dependency.Create(new DO.Dependency(0, 4, 2)); // Scheduler depends on Task Management System Development
         s_dal!.Dependency.Create(new DO.Dependency(0, 5, 3)); // Contribution Mechanisms Development depends on Project Tracking
-        //s_dal!.Dependency.Create(new DO.Dependency(0, 6, 1)); // Profile Management depends on User Interface Development
-  //      s_dal!.Dependency.Create(new DO.Dependency(0, 7, 1)); // Task Assignment depends on User Interface Development
+                                                              //s_dal!.Dependency.Create(new DO.Dependency(0, 6, 1)); // Profile Management depends on User Interface Development
+                                                              //      s_dal!.Dependency.Create(new DO.Dependency(0, 7, 1)); // Task Assignment depends on User Interface Development
         s_dal!.Dependency.Create(new DO.Dependency(0, 8, 2)); // Document Management depends on Task Management System Development
         s_dal!.Dependency.Create(new DO.Dependency(0, 9, 10)); // Daily Activity Monitoring depends on Online Video Calls
         s_dal!.Dependency.Create(new DO.Dependency(0, 10, 7)); // Online Video Calls depends on Task Assignment
@@ -128,8 +128,8 @@ public static class Initialization
                 "Profile Management",
                 "Task Assignment",
                 "Document Management",
-                "Daily Monitoring",
-                "Video Calls",
+                 "Daily Monitoring",
+                 "Video Calls",
                 "Notifications and Reminders",
                 "User Authentication",
                 "Automation",
@@ -197,11 +197,11 @@ public static class Initialization
         CreateDependencies();
         CreateTasks();
     }
-
     public static void Reset()
     {
-            s_dal!.Engineer.DeleteAll();
-            s_dal!.Task.DeleteAll();
-            s_dal!.Dependency.DeleteAll();      
+        s_dal = DalApi.Factory.Get;
+        s_dal.Engineer.DeleteAll();
+        s_dal.Task.DeleteAll();
+        s_dal.Dependency.DeleteAll();
     }
 }
