@@ -6,6 +6,9 @@
     <Application.Resources>
         <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
+        <local:ConvertTextToVisibility x:Key="ConvertTextToVisibilityKey"/>
+        <local:ConvertTextToIsEnabled x:Key="ConvertTextToIsEnabledKey"/>
+        <local:ConvertTaskToVisibility x:Key="ConvertTaskToVisibilityKey"/>
 
     </Application.Resources>
 </Application>
