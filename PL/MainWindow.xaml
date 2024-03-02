@@ -8,11 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!--Button to display the engineer list window-->
-        <Button Click="btnEngineers_Click" Content="Handle Engineers" HorizontalAlignment="Left" Height="50" Width="113" Margin="490,266,0,117" RenderTransformOrigin="-0.76,0.465"/>
+        <Button Click="btnEngineers_Click" Content="Handle Engineers"  FontWeight="Bold"  HorizontalAlignment="Left" Height="50" Width="113" Margin="490,266,0,117" RenderTransformOrigin="-0.76,0.465"/>
         <!--Button for initializing the database-->
-        <Button Click="btnInitialize_Click" Content="initialization" HorizontalAlignment="Center" Height="50" Width="112" Margin="0,266,0,117"/>
+        <Button Click="btnInitialize_Click" Content="initialization" FontWeight="Bold" HorizontalAlignment="Center" Height="50" Width="112" Margin="0,266,0,117" RenderTransformOrigin="3.319,-2.026"/>
         <!--Button to reset database-->
-        <Button Click="btnReset_Click" Content="Reset" HorizontalAlignment="Left" Height="50" Width="112" Margin="183,266,0,117" RenderTransformOrigin="0.591,0.506"/>
-
+        <Button Click="btnReset_Click" Content="Reset" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="112" Margin="183,266,0,117" RenderTransformOrigin="0.591,0.506"/>
+        <Label Content="Empower Your Projects: Welcome to Our Project Management Hub" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="715" FontSize="20" Foreground="#FFD9D9D9" Height="50"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="D:\project2024\dotNet5784_4618\PL\shutterstock_734184223.jpg"/>
+        </Grid.Background>
     </Grid>
 </Window>
