@@ -11,4 +11,5 @@ public interface ITask
 
     public void Update(BO.Task item);
     public void AddDependency(int dependencyTask ,int dependencyOnTask );
+    public bool AreAllPreviousTasksCompleted(int id);
 }

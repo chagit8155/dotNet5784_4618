@@ -238,7 +238,7 @@ internal class TaskImplementation : ITask
             else if (_bl.GetProjectStatus() == BO.ProjectStatus.Execution)
             {
                 int? engineerId = boTask.Engineer is not null ? boTask.Engineer.Id : null;
-                DO.Task doTask = new DO.Task {Id =boTask.Id ,  Alias = boTask.Alias, EngineerId = engineerId, Deliverables = boTask.Deliverables, Remarks = boTask.Remarks, Description = boTask.Description };
+                DO.Task doTask = new DO.Task { Id = boTask.Id, Alias = boTask.Alias, EngineerId = engineerId, Deliverables = boTask.Deliverables, Remarks = boTask.Remarks, Description = boTask.Description };
                 _dal.Task.Update(doTask);
             }
         }
@@ -308,7 +308,7 @@ internal class TaskImplementation : ITask
 
     private BO.EngineerInTask? getEngineerInTask(DO.Task task)
     {
-   //    BO.EngineerInTask? engineerInTask = null;
+        //    BO.EngineerInTask? engineerInTask = null;
         // Check if an engineer is assigned to the task
         if (task.EngineerId == null || task.EngineerId == 0)
             return null;
@@ -370,9 +370,9 @@ internal class TaskImplementation : ITask
     private List<BO.TaskInList>? getDependenciesInList(int id) // returns all the tasks that dapends on the task with the id that given
     {
         List<TaskInList>? depTaskInLists = new List<TaskInList>();
-      
+
         var depList = _dal.Dependency.ReadAll(item => item.DependentTask == id).Select(item => item!.DependsOnTask)!.ToList();
-   
+
         if (!depList.Any())
         {
             return null;
@@ -414,46 +414,22 @@ internal class TaskImplementation : ITask
                     _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
             }
         }
-        //private bool isDependsOnTask(int dependencyTask, int dependsOnTask) //is task with the id 'dependencyTask' depends on the task with the id 'dependsOnTask'
-        //{
-        //    return _dal.Dependency.Read(dependencyTask)!.DependsOnTask == dependsOnTask;
-        //}
-
-        //private DO.Task convertBOtoDO(BO.Task item)
-        //{
-        //    return new DO.Task
-        //    {
-        //        Id = item.Id,
-        //        EngineerId = item.Engineer.Id; 
-        //        Alias = task.Alias,
-        //        Description = task.Description,
-        //        CreatedAtDate = task.CreatedAtDate,
-        //        Status = statusCalculation(task),
-        //        Dependencies = returnDepTask(task.Id),
-        //        RequiredEffortTime = task.RequiredEffortTime,
-        //        StartDate = task.StartDate,
-        //        ScheduledDate = task.ScheduledDate,
-        //        ForecastDate = (task.ScheduledDate > task.StartDate) ? task.ScheduledDate : task.StartDate,
-        //        CompleteDate = task.CompleteDate,
-        //        Deliverables = task.Deliverables,
-        //        Remarks = task.Remarks,
-
-        //        Complexity = (BO.EngineerExperience)task.Copmlexity
-        //        // int Id,
-        //        //int EngineerId,
-        //        //bool IsMilestone = false,
-        //        //string ? Alias = null,
-        //        //string ? Description = null,
-        //        //DateTime ? CreatedAtDate = null,
-        //        //DateTime ? ScheduledDate = null,
-        //        //DateTime ? StartDate = null,
-        //        //TimeSpan ? RequiredEffortTime = null,
-        //        //DO.EngineerExperience Copmlexity = EngineerExperience.Beginner,
-        //        //DateTime ? Deadline = null,
-        //        //DateTime ? CompleteDate = null,
-        //        //string ? Deliverables = null,
-        //        //string ? Remarks = null
-        //    };
+    }
+    //private bool isDependsOnTask(int dependencyTask, int dependsOnTask) //is task with the id 'dependencyTask' depends on the task with the id 'dependsOnTask'
+    //{
+    //    return _dal.Dependency.Read(dependencyTask)!.DependsOnTask == dependsOnTask;
+    //}
+    public bool AreAllPreviousTasksCompleted(int id)
+    {
+        List<TaskInList>? prevTask = getDependenciesInList(id)?.ToList();
+        if (prevTask is null)
+            return true;
+        foreach (var item in prevTask)
+        {
+            if (item.Status != BO.Status.Done)
+                return false;
+        }
+        return true;
 
     }
 }

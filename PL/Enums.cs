@@ -5,7 +5,7 @@ internal class Enums
 {
 
 }
-internal class EngineerExperienceCollection : IEnumerable //enum without the option None
+internal class EngineerExperienceCollection : IEnumerable // enum without the option None
 {
     static readonly IEnumerable<BO.EngineerExperience> s_enums =
       (Enum.GetValues(typeof(BO.EngineerExperience)) as IEnumerable<BO.EngineerExperience>)!;
@@ -16,7 +16,7 @@ internal class EngineerExperienceCollection : IEnumerable //enum without the opt
         {
             if (item == BO.EngineerExperience.None)
                 continue;
-            yield return item;
+            yield return item;               
         }
     }
 }

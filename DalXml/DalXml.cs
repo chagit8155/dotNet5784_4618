@@ -1,6 +1,5 @@
 ﻿namespace Dal;
 using DalApi;
-using System.Data.Common;
 using System.Xml.Linq;
 
 sealed internal class DalXml : IDal
@@ -12,20 +11,18 @@ sealed internal class DalXml : IDal
 
     public ITask Task => new TaskImplementation();
     private DalXml() { }
-    public DateTime? StartProjectDate { get; set; }
-
-  
-    public DateTime? EndProjectDate {  get; set; }
 
     private static readonly string s_data_config_xml = "data-config";
-   
+
+    public DateTime? StartProjectDate { get; set; }
+    public DateTime? EndProjectDate { get; set; }
     public DateTime? GetStartProjectDate()
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml).Element("StartProjectDate")!;
-        if (root.Value == "") 
+        if (root.Value == "")
             return null;
-        return DateTime.Parse(root.Value);  
-    } 
+        return DateTime.Parse(root.Value);
+    }
     public DateTime? GetEndProjectDate()
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml).Element("EndProjectDate")!;
@@ -33,22 +30,21 @@ sealed internal class DalXml : IDal
             return null;
         return DateTime.Parse(root.Value);
     }
-    public DateTime? SetStartProjectDate()
+    public DateTime? SetStartProjectDate(DateTime? start)
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml);
-        root.Element("StartProjectDate")!.Value = EndProjectDate.ToString()!;
+        root.Element("StartProjectDate")!.Value = start.ToString()!;
         XMLTools.SaveListToXMLElement(root, s_data_config_xml);
-        return StartProjectDate;
+        return start;
 
     }
 
-
-    public DateTime? SetEndProjectDate()
+    public DateTime? SetEndProjectDate(DateTime? end)
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml);
-        root.Element("EndProjectDate")!.Value = EndProjectDate.ToString()!;
+        root.Element("EndProjectDate")!.Value = end.ToString()!;
         XMLTools.SaveListToXMLElement(root, s_data_config_xml);
-        return EndProjectDate;
+        return end;
     }
     public void resetTimeLine()
     {

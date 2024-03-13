@@ -1,4 +1,5 @@
 ﻿using PL.Engineer;
+using PL.Task;
 using System.Windows;
 namespace PL;
 
@@ -50,5 +51,10 @@ public partial class MainWindow : Window
         {
             s_bl.ResetDB();
         }
+    }
+
+    private void btnTasks_Click(object sender, RoutedEventArgs e)
+    {
+        new TaskForListWindow().Show();
     }
 }
