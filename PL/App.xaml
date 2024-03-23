@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:FilterEngineerExperienceCollection x:Key="FilterEngineerExperienceCollectionKey" />
-        <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey" />
+        <local:FilterEngineerExperienceCollection x:Key="FilterEngineerExperienceCollectionKey"/>
+        <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey"/>
+        <local:TaskStatusCollection x:Key="TaskStatusCollectionKey"/>
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:ConvertTextToVisibility x:Key="ConvertTextToVisibilityKey"/>
         <local:ConvertTextToIsEnabled x:Key="ConvertTextToIsEnabledKey"/>

@@ -57,4 +57,9 @@ public partial class MainWindow : Window
     {
         new TaskForListWindow().Show();
     }
+
+    private void btnGant_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

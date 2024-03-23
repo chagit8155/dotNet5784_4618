@@ -17,18 +17,6 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// Gets or sets the list of engineers displayed in the window.
     /// </summary>
-    //public IEnumerable<BO.Engineer> EngineerList
-    //{
-    //    get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
-    //    set { SetValue(EngineerListProperty, value); }
-    //}
-
-    ///// <summary>
-    ///// Dependency property for the EngineerList property.
-    ///// </summary>
-    //public static readonly DependencyProperty EngineerListProperty =
-    //DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
-    //ObservableCollection
     public IEnumerable<BO.Engineer> EngineerList
     {
         get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
