@@ -7,20 +7,22 @@ public enum EngineerExperience
     Advanced,
     Expert,
     None
-}
+};
 public enum Status
 {
     Unscheduled,
     Scheduled,
     OnTrack,
-    Done
-}
+    InJeopredy,
+    Done,
+    None
+};
 public enum ProjectStatus
 {
     Planing,
     MidLevel,
     Execution
-}
+};
 public enum MainMenu
 {
     Exit,
@@ -53,4 +55,15 @@ public enum CreateScheduleOption
 {
     Automatically,
     Manually
-}
+};
+public enum Time
+{
+    Hour,
+    Day,
+    Year
+};
+public enum User
+{
+    Manager,
+    Engineer
+};

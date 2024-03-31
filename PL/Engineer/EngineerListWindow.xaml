@@ -9,6 +9,32 @@
         Loaded="loadTheUpdatedEngineersList_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="EngineerListWindow" Height="640" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Button" >
+            <Setter Property="Background" Value="#FFD9D9D9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--Using ControlTemplate-->
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" CornerRadius="30"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <!--the content in the center-->
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!--trigget event-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background"  Value="LightSkyBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+
     <!--Extrnal Grid-->
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -27,7 +53,7 @@
                       SelectedValue="{Binding Level, Mode=TwoWay}"
                       ItemsSource="{Binding Source={StaticResource FilterEngineerExperienceCollectionKey}}" 
                       SelectionChanged="cbEngineerExperienceSelector_SelectionChanged"/>
-          
+
 
         </Grid>
         <ListView Grid.Column="1"  Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" 

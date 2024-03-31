@@ -7,9 +7,11 @@ using System.Linq;
 
 internal class EngineerImplementation : IEngineer
 {
+    private readonly IBl bl;
+    internal EngineerImplementation(IBl bl) => this.bl = bl;
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl _bl = BlApi.Factory.Get();
-
+   
     /// <summary>
     /// Creates a new engineer with the specified details.
     /// </summary>
@@ -186,7 +188,7 @@ internal class EngineerImplementation : IEngineer
     /// <param name="id">The ID of the task to mark as finished.</param>
     private void finishTask(int id)
     {
-        _dal.Task.Update(_dal.Task.Read(id)! with { CompleteDate = DateTime.Now, EngineerId = null });
+        _dal.Task.Update(_dal.Task.Read(id)! with { CompleteDate = bl.Clock, EngineerId = null });
     }
 
     /// <summary>

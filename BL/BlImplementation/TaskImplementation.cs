@@ -1,12 +1,14 @@
 ﻿namespace BlImplementation;
 using BlApi;
-using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 internal class TaskImplementation : ITask
 {
+    private readonly IBl bl;
+    internal TaskImplementation(IBl bl) => this.bl = bl;
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl _bl = BlApi.Factory.Get();
 
@@ -14,7 +16,6 @@ internal class TaskImplementation : ITask
     //{
 
     //}
-
 
     /// <summary>
     /// Adds a dependency for a task on another task.
@@ -238,7 +239,10 @@ internal class TaskImplementation : ITask
             else if (_bl.GetProjectStatus() == BO.ProjectStatus.Execution)
             {
                 int? engineerId = boTask.Engineer is not null ? boTask.Engineer.Id : null;
-                DO.Task doTask = new DO.Task { Id = boTask.Id, Alias = boTask.Alias, EngineerId = engineerId, Deliverables = boTask.Deliverables, Remarks = boTask.Remarks, Description = boTask.Description };
+                //     DO.Task doTask = new DO.Task { Id = boTask.Id, Alias = boTask.Alias, EngineerId = engineerId, Deliverables = boTask.Deliverables, Remarks = boTask.Remarks, Description = boTask.Description };
+                DO.Task doTask = new DO.Task(boTask.Id, engineerId, false, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.ScheduledDate,
+                    bl.Clock.Date, boTask.RequiredEffortTime, (DO.EngineerExperience)boTask.Complexity, null, boTask.CompleteDate, boTask.Deliverables, boTask.Remarks);
+
                 _dal.Task.Update(doTask);
             }
         }
@@ -299,7 +303,11 @@ internal class TaskImplementation : ITask
         if (task.ScheduledDate == null)
             return BO.Status.Unscheduled;
         if (task.StartDate == null)
+        {
+            if (_bl.Clock.Date > task.ScheduledDate)
+                return BO.Status.InJeopredy;
             return BO.Status.Scheduled;
+        }
         if (task.CompleteDate == null)
             return BO.Status.OnTrack;
         return BO.Status.Done;
@@ -369,7 +377,7 @@ internal class TaskImplementation : ITask
     /// <returns>A list of tasks that depend on the specified task.</returns>
     private List<BO.TaskInList>? getDependenciesInList(int id) // returns all the tasks that dapends on the task with the id that given
     {
-        List<TaskInList>? depTaskInLists = new List<TaskInList>();
+        List<BO.TaskInList>? depTaskInLists = new List<BO.TaskInList>();
 
         var depList = _dal.Dependency.ReadAll(item => item.DependentTask == id).Select(item => item!.DependsOnTask)!.ToList();
 
@@ -383,7 +391,7 @@ internal class TaskImplementation : ITask
             // Retrieve dependent task from the data layer
             DO.Task depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == item) ?? throw new BO.BlDoesNotExistException($"Task with ID={item} does Not exist");
             // Add dependent task to the list with calculated status
-            depTaskInLists.Add(new TaskInList { Id = depTask.Id, Alias = depTask.Alias, Description = depTask.Description, Status = calculateStatus(depTask) });
+            depTaskInLists.Add(new BO.TaskInList { Id = depTask.Id, Alias = depTask.Alias, Description = depTask.Description, Status = calculateStatus(depTask) });
         }
         return depTaskInLists;
     }
@@ -421,7 +429,7 @@ internal class TaskImplementation : ITask
     //}
     public bool AreAllPreviousTasksCompleted(int id)
     {
-        List<TaskInList>? prevTask = getDependenciesInList(id)?.ToList();
+        List<BO.TaskInList>? prevTask = getDependenciesInList(id)?.ToList();
         if (prevTask is null)
             return true;
         foreach (var item in prevTask)

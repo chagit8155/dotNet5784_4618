@@ -4,9 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        Icon="D:\project2024\dotNet5784_4618\PL\Pictures\OIP.jpg"
+        mc:Ignorable="d"     
+        Icon="/project-management-icon-png-16.jpg"
         Title="MainWindow" Height="450" Width="800">
+
+        <!--DarkCyan-->
+    <Window.Resources>
+        <Style TargetType="Button" >
+            <Setter Property="Background" Value="#FFD9D9D9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--Using ControlTemplate-->
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" CornerRadius="30"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/> <!--the content in the center-->
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!--trigget event-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background"  Value="LightSkyBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Label Content="Empower Your Projects: Welcome to Our Project Management Hub" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="715" FontSize="20" Foreground="#FFD9D9D9" Height="50"/>
         <!--Button to display the engineer list window-->
@@ -14,13 +38,21 @@
         <!--Button for initializing the database-->
         <Button Click="btnInitialize_Click" Content="Initialize" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="112" Margin="202,261,0,122" RenderTransformOrigin="3.319,-2.026"/>
         <!--Button to reset database-->
-        <Button Click="btnReset_Click" Content="Reset" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="112" Margin="70,261,0,122" RenderTransformOrigin="0.591,0.506"/>
+        <Button Click="btnReset_Click"  Content="Reset" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="112" Margin="70,261,0,122" RenderTransformOrigin="0.591,0.506"/>
+           
+      
+
         <Button  Click="btnTasks_Click" Content="Handle Tasks" FontWeight="Bold" HorizontalAlignment="Left" Margin="480,261,0,0" VerticalAlignment="Top" Height="50" Width="117"   RenderTransformOrigin="0.591,0.506"/>
         <Button Content="Gant" Margin="616,259,61,0" VerticalAlignment="Top" FontWeight="Bold" Height="52" Click="btnGant_Click"/>
 
+        <!--<Border BorderBrush="Black" BorderThickness="1" Background="Transparent"  CornerRadius="5" Margin="-32,-72,32,72">
+            <PasswordBox  Width="150" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                         FontSize="14" FontWeight="Bold" PasswordChar="●"/>
+        </Border>-->
 
         <Grid.Background>
-            <ImageBrush ImageSource="D:\project2024\dotNet5784_4618\PL\Pictures\shutterstock_734184223.jpg"/>
+            <ImageBrush ImageSource="/shutterstock_734184223.jpg"/>
         </Grid.Background>
+        
     </Grid>
 </Window>

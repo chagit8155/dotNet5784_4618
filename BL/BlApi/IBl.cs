@@ -1,4 +1,6 @@
-﻿namespace BlApi;
+﻿using BO;
+
+namespace BlApi;
 public interface IBl
 {
     public IEngineer Engineer { get; }
@@ -6,7 +8,14 @@ public interface IBl
     public DateTime? StartProjectDate { get; set; }
    // public DateTime? EndProjectDate { get; set; } //
     public BO.ProjectStatus GetProjectStatus();
-    public void CreateSchedule(BO.CreateScheduleOption option = BO.CreateScheduleOption.Automatically, int taskId = -1);
+    public void CreateSchedule(DateTime date, BO.CreateScheduleOption option = BO.CreateScheduleOption.Automatically, int taskId = -1);
+
+    #region Clock
+    public DateTime Clock { get; }
+    public void PromoteTime(Time addTime);
+    public void ResetClock();
+    #endregion
+
     public void InitializeDB();
     public void ResetDB();
 }

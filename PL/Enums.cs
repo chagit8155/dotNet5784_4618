@@ -16,7 +16,7 @@ internal class EngineerExperienceCollection : IEnumerable // enum without the op
         {
             if (item == BO.EngineerExperience.None)
                 continue;
-            yield return item;               
+            yield return item;
         }
     }
 }

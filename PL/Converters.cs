@@ -7,7 +7,59 @@ namespace PL;
 //class Converters
 //{
 //}
+public class ConvertStatusToBackground : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        switch (value)
+        {
+            case "Done":
+                return Brushes.LightGreen;
+            case "Scheduled":
+                return Brushes.Yellow;
+            case "OnTrack":
+                return Brushes.LightSkyBlue;
+            case "InJeopredy":
+                return Brushes.LightPink;
+            default:
+                return Brushes.White;
+        }
 
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class ConvertStatusToForeground : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        switch (value)
+        {
+            case "Done":
+                return Brushes.LightGreen;
+            case "Scheduled":
+                return Brushes.Yellow;
+            case "OnTrack":
+                return Brushes.LightSkyBlue;
+            case "InJeopredy":
+                return Brushes.LightPink;
+            case "None":
+                return Brushes.White;
+            default:
+                return Brushes.Black;
+        }
+
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 /// <summary>
 /// Converts an ID value to content for display purposes.
 /// </summary>
@@ -139,59 +191,7 @@ public class ConvertTaskToVisibility : IValueConverter
     }
 
 
-    public class ConvertStatusToBackground : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            switch (value)
-            {
-                case "Done":
-                    return Brushes.LightGreen;
-                case "Scheduled":
-                    return Brushes.Yellow;
-                case "OnTrack":
-                    return Brushes.LightSkyBlue;
-                case "InJeopredy":
-                    return Brushes.LightPink;
-                default:
-                    return Brushes.White;
-            }
 
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-
-    public class ConvertStatusToForeground : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            switch (value)
-            {
-                case "Done":
-                    return Brushes.LightGreen;
-                case "Scheduled":
-                    return Brushes.Yellow;
-                case "OnTrack":
-                    return Brushes.LightSkyBlue;
-                case "InJeopredy":
-                    return Brushes.LightPink;
-                case "None":
-                    return Brushes.White;
-                default:
-                    return Brushes.Black;
-            }
-
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     public class ConvertTaskInEngineerToText : IValueConverter
     {

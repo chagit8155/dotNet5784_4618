@@ -61,12 +61,12 @@ internal class Program //Bl
                     int taskId = int.Parse(Console.ReadLine()!);
                     if (taskId == -1)
                     {
-                        s_bl.CreateSchedule();
+                        s_bl.CreateSchedule(s_bl.Clock);
                         continue;
                     }
                     else
                     {
-                        s_bl.CreateSchedule(BO.CreateScheduleOption.Manually, taskId);
+                        s_bl.CreateSchedule(s_bl.Clock, BO.CreateScheduleOption.Manually, taskId);
                         continue;
                     }
                 }

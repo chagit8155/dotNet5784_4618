@@ -1,4 +1,5 @@
 ﻿using PL.Engineer;
+using PL.Gant;
 using PL.Task;
 using System.Windows;
 namespace PL;
@@ -60,6 +61,8 @@ public partial class MainWindow : Window
 
     private void btnGant_Click(object sender, RoutedEventArgs e)
     {
-
+        new GantWindow().Show();
     }
+
+   
 }

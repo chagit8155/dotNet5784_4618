@@ -1,25 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-	  <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
-	  <OutputPath>$(SolutionDir)\bin\</OutputPath>
-	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
+		<OutputPath>$(SolutionDir)\bin\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj" />
+	<ItemGroup>
+	  <None Remove="project-management-icon-png-16.jpg" />
+	  <None Remove="shutterstock_734184223.jpg" />
+	</ItemGroup>
 
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BL\BL.csproj" />
 
-  <ItemGroup>
-    <Folder Include="Pictures\" />
-  </ItemGroup>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Pictures\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="project-management-icon-png-16.jpg" />
+	  <Resource Include="shutterstock_734184223.jpg" />
+	</ItemGroup>
 
 </Project>

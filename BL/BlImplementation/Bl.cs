@@ -1,20 +1,53 @@
 ﻿namespace BlImplementation;
 using BlApi;
-
 using System;
+using System.Runtime.InteropServices;
 
 internal class Bl : IBl
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    public IEngineer Engineer => new EngineerImplementation();
-    public ITask Task => new TaskImplementation();
-    public DateTime? StartProjectDate { get => _dal.StartProjectDate; set => _dal.StartProjectDate = value; }
-
-    //   public DateTime? EndProjectDate { get => EndProjectDate; init => EndProjectDate = value; }
+    public IEngineer Engineer => new EngineerImplementation(this);
+    public ITask Task => new TaskImplementation(this);
+    //  public DateTime? StartProjectDate { get => _dal.StartProjectDate; set => _dal.StartProjectDate = value; }
+    //  public DateTime? EndProjectDate { get => EndProjectDate; init => EndProjectDate = value; }
     public void InitializeDB() => DalTest.Initialization.Do();
     public void ResetDB() => DalTest.Initialization.Reset();
 
+    private static DateTime s_Clock = DateTime.Now;
+    public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
+    public DateTime? StartProjectDate
+    {
+        get => _dal.StartProjectDate is null ? Clock.Date : _dal.StartProjectDate;
+        set
+        {
+            if (value <= Clock)
+                throw new BO.BlCannotBeUpdatedException("The project can't be started before today's date");
+            _dal.StartProjectDate = value;
+        }
+    }
 
+    public void PromoteTime(BO.Time addTime)
+    {
+        switch (addTime)
+        {
+            case BO.Time.Hour:
+                Clock = Clock.AddHours(1);
+                break;
+            case BO.Time.Day:
+                Clock = Clock.AddDays(1);
+                break;
+            case BO.Time.Year:
+                Clock = Clock.AddYears(1);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ResetClock()
+    {
+        Clock = DateTime.Now;
+    }
 
     /// <summary>
     /// Retrieves the status of the project.
@@ -93,7 +126,7 @@ internal class Bl : IBl
         }
         else
         {
-            DateTime? maxForecast = DateTime.Now;
+            DateTime? maxForecast = Clock;
             foreach (var d in task.Dependencies!)
             {
                 BO.Task readTask = Task.Read(d.Id);
@@ -106,7 +139,7 @@ internal class Bl : IBl
         }
         Task.Update(task);
     }
-    public void CreateSchedule(BO.CreateScheduleOption option = BO.CreateScheduleOption.Automatically, int taskId = -1)
+    public void CreateSchedule(DateTime date, BO.CreateScheduleOption option = BO.CreateScheduleOption.Automatically, int taskId = -1)
     {
         switch (option)
         {
