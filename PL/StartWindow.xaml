@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#FFC7E2E8"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="StartWindow" Height="450" Width="800">
+        Title="StartWindow" Height="500" Width="850">
     <Window.Resources>
         <Style TargetType="Button" >
             <Setter Property="Background" Value="#FFD9D9D9"/>
@@ -34,6 +34,8 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+
+
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -44,11 +46,26 @@
 
         </Grid.ColumnDefinitions>
 
-        <Label Content="{Binding CurrentTime }" FontWeight="Bold" FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="129" Width="274" Grid.Row="1" Margin="257,45,0,0" RenderTransformOrigin="0.499,0.537"/>
+        <Label Content="{Binding CurrentTime }" FontWeight="Bold" FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="129" Width="274" Margin="236,40,0,0" RenderTransformOrigin="0.499,0.537" Grid.RowSpan="2"/>
 
-        <Button Content="Add Hour" RenderTransformOrigin="0.62,1.295" Margin="222,213,468,188" Click="btnAddHour_click"  Grid.Row="1" />
-        <Button Content="Add Day" RenderTransformOrigin="0.62,1.295" Margin="338,213,350,188" Click="btnAddDay_click"  Grid.Row="1" />
-        <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Margin="454,213,234,188" Click="btnAddYear_click"  Grid.Row="1" />
-        <Button Content="Log in" HorizontalAlignment="Left" Margin="338,13,0,0" VerticalAlignment="Top" Height="37" Width="100" Click="BtnLogIn_Click"/>
+        <Button Content="Add Hour" RenderTransformOrigin="0.62,1.295" Margin="332,134,368,262" Click="btnAddHour_click"  Grid.Row="1" />
+        <Button Content="Add Day" RenderTransformOrigin="0.62,1.295" Margin="213,134,487,262" Click="btnAddDay_click"  Grid.Row="1" />
+        <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Margin="447,134,253,261" Click="btnAddYear_click"  Grid.Row="1" />
+        <Button Content="Admin" HorizontalAlignment="Left" Margin="382,294,0,0" VerticalAlignment="Top" Height="36" Width="100" Click="BtnLogInAsAdmin_Click" Grid.Row="1"/>
+        <Button Content="Engineer" HorizontalAlignment="Left" Margin="273,294,0,0" VerticalAlignment="Top" Height="37" Width="100" 
+                Click="BtnLogInAsEngineer_Click" Grid.Row="1"/>
+
+        <Label Content="{Binding CurrentProjectStatus }" FontWeight="Bold" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Top" Height="41" Margin="535,237,56,0" RenderTransformOrigin="0.499,0.537" Grid.Row="1"/>
+
+
+        <Ellipse HorizontalAlignment="Left" Height="262"  Margin="169,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="446" Grid.RowSpan="2"/>
+
+        <Label Content="Select your role:"  FontWeight="Bold" Margin="273,262,405,132" Grid.Row="1" RenderTransformOrigin="0.243,0.069"/>
+        <Label Content="The project status now is: "  FontWeight="Bold" FontSize="15" HorizontalAlignment="Left" Margin="570,204,0,0" Grid.Row="1" VerticalAlignment="Top" Height="36" Width="189"/>
+
+        <!--<Button Content="Enter" Height="NaN" Width="NaN" Margin="86,335,650,57" Click="btnEnter_Click" Grid.Row="1"/>
+       
+       
+        <TextBox Text="{Binding EngineerId,Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="197" Height="23" FontFamily="/password-font.ttf" Canvas.Left="188" Canvas.Top="241" Margin="28,307,0,0" Grid.Row="1"/>-->
     </Grid>
 </Window>

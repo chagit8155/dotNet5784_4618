@@ -1,4 +1,6 @@
-﻿namespace PL.Gant;
+﻿
+namespace BO;
+
 public class TaskForGant
 {
     public int TaskId { get; set; }

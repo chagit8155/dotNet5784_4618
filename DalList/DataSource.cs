@@ -2,6 +2,11 @@
 
 internal static class DataSource
 {
+    //each entity saved in list in the internal memory 
+    internal static List<DO.Engineer> Engineers { get; } = new();
+    internal static List<DO.Task> Tasks { get; } = new();
+    internal static List<DO.Dependency> Dependences { get; } = new();
+
     internal static class Config
     {
         //( public DateTime )Start date of work on the project
@@ -19,7 +24,5 @@ internal static class DataSource
         public static DateTime? StartProjectDate { get; set; }
         public static DateTime? EndProjectDate { get; set; }
     }
-    internal static List<DO.Engineer> Engineers { get; } = new();
-    internal static List<DO.Task> Tasks { get; } = new();
-    internal static List<DO.Dependency> Dependences { get; } = new();
+
 }

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using BO;
+using PL.Engineer;
+using System.Windows;
 using System.Windows.Controls;
 namespace PL.Task;
 
@@ -11,14 +13,18 @@ public partial class TaskForListWindow : Window
     public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.None;
     public BO.Status Status { get; set; } = BO.Status.Unscheduled;
     public Func<BO.Task, bool>? Filter { get; set; }
+    public int IdEngineer { get; set; }
+
     public TaskForListWindow()
     {
+        IdEngineer = 0;
         InitializeComponent();
     }
     public TaskForListWindow(BO.Engineer engineer)
     {
-        InitializeComponent();
         Filter = item => item.Engineer is null && s_bl.Task.AreAllPreviousTasksCompleted(item.Id);
+        IdEngineer = engineer.Id;
+        InitializeComponent();
     }
 
     public IEnumerable<BO.TaskInList> TaskList
@@ -52,22 +58,39 @@ public partial class TaskForListWindow : Window
         DependencyProperty.Register("StartDate", typeof(DateTime), typeof(TaskForListWindow), new PropertyMetadata(null));
 
 
-    private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
-    {
-        TaskList = s_bl.Task.ReadAll(task => task.StartDate == StartDate && Filter == null ? true : Filter!(task));
-    }
+   
 
     private void lvSelectTaskToUpdate_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
 
+        MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task {task!.Alias}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+        if (mbResult == MessageBoxResult.OK)
+        {
+            BO.Task updateTask = s_bl.Task.Read(task!.Id);
+            BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = IdEngineer };
+            updateTask!.Engineer = engInTask;
+            s_bl.Task.Update(updateTask);
+            this.Close();
+            new EngineerMainWindow(IdEngineer).Show();
+        }
         new TaskWindow(task?.Id ?? 0).ShowDialog();
         TaskList = s_bl.Task.ReadAll(Filter);
     }
 
     private void CbFilterByLevel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-        TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status && Filter == null ? true : Filter!(task));
+        TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Complexity == Complexity);
+    }
+    private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
+    {
+        TaskList = s_bl.Task.ReadAll(task => task.StartDate == StartDate);
+    }
+    private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+        TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status);
+
     }
 
     private void btnDeleteTask_Click(object sender, RoutedEventArgs e)
@@ -96,10 +119,5 @@ public partial class TaskForListWindow : Window
             CurrentTask = s_bl.Task.Read(task.Id);
     }
 
-    private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-        TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status && Filter == null ? true : Filter!(task));
-
-    }
+   
 }

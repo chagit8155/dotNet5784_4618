@@ -1,6 +1,7 @@
 ﻿namespace DalTest;
 using Dal;
 using DalApi;
+using DO;
 using System;
 using System.Xml.Linq;
 
@@ -47,69 +48,46 @@ public static class Initialization
     private static void CreateDependencies()
     {
         ////there is 20 tasks 
-        //int _dependentTask, _dependsOnTask;
-        //for (int i = 0; i < 38; i++)
-        //{
-        //    _dependentTask = s_rand.Next(1, 18);
-        //    _dependsOnTask = s_rand.Next(1, 18);
-        //    Dependency newDepn = new() { DependentTask = _dependentTask, DependsOnTask = _dependsOnTask };
-        //    s_dal!.Dependency.Create(newDepn); // stage 2
-        //}
-        //Dependency newDep = new() { DependentTask = 19, DependsOnTask = 5 }; //There must be at least two tasks whose dependent lists are the same.
-        //s_dal!.Dependency.Create(newDep); //stage 2
-        //newDep = new Dependency() { DependentTask = 20, DependsOnTask = 5 };
-        //s_dal!.Dependency.Create(newDep); //stage 2
-        //     s_dal!.Dependency.Create(new DO.Dependency(0, 1, 2)); // User Interface Development depends on Task Management System Development
-        //   s_dal!.Dependency.Create(new DO.Dependency(0, 1, 3)); // User Interface Development depends on Project Tracking
-        // s_dal!.Dependency.Create(new DO.Dependency(0, 1, 4)); // User Interface Development depends on Scheduler
-        s_dal!.Dependency.Create(new DO.Dependency(0, 2, 7)); // Task Management System Development depends on Task Assignment
-        s_dal!.Dependency.Create(new DO.Dependency(0, 2, 8)); // Task Management System Development depends on Document Management
-        s_dal!.Dependency.Create(new DO.Dependency(0, 2, 11)); // Task Management System Development depends on Task Notifications System
-        s_dal!.Dependency.Create(new DO.Dependency(0, 3, 15)); // Project Tracking depends on REST API Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 4, 9)); // Scheduler depends on Daily Activity Monitoring
-        s_dal!.Dependency.Create(new DO.Dependency(0, 5, 7)); // Contribution Mechanisms Development depends on Task Assignment
-        s_dal!.Dependency.Create(new DO.Dependency(0, 6, 5)); // Profile Management depends on Contribution Mechanisms Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 7, 2)); // Task Assignment depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 7, 6)); // Task Assignment depends on Profile Management
-        s_dal!.Dependency.Create(new DO.Dependency(0, 7, 10)); // Task Assignment depends on Online Video Calls
-        s_dal!.Dependency.Create(new DO.Dependency(0, 8, 9)); // Document Management depends on Daily Activity Monitoring
-        s_dal!.Dependency.Create(new DO.Dependency(0, 8, 10)); // Document Management depends on Online Video Calls
-        s_dal!.Dependency.Create(new DO.Dependency(0, 9, 8)); // Daily Activity Monitoring depends on Document Management
-        //s_dal!.Dependency.Create(new DO.Dependency(0, 10, 1)); // Online Video Calls depends on User Interface Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 11, 2)); // Task Notifications System depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 11, 12)); // Task Notifications System depends on User Authentication
-        s_dal!.Dependency.Create(new DO.Dependency(0, 12, 18)); // User Authentication depends on Technological Upgrade
-        s_dal!.Dependency.Create(new DO.Dependency(0, 13, 2)); // Automation in Task Management depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 13, 4)); // Automation in Task Management depends on Scheduler
-        s_dal!.Dependency.Create(new DO.Dependency(0, 14, 13)); // Analysis Reports depends on Automation in Task Management
-        s_dal!.Dependency.Create(new DO.Dependency(0, 14, 15)); // Analysis Reports depends on REST API Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 15, 16)); // REST API Development depends on Version Control
-        s_dal!.Dependency.Create(new DO.Dependency(0, 16, 18)); // Version Control depends on Technological Upgrade
-        s_dal!.Dependency.Create(new DO.Dependency(0, 17, 12)); // User Verification depends on User Authentication
-        s_dal!.Dependency.Create(new DO.Dependency(0, 18, 17)); // Technological Upgrade depends on User Verification
-        s_dal!.Dependency.Create(new DO.Dependency(0, 19, 16)); // Bug Tracking depends on Version Control
-        s_dal!.Dependency.Create(new DO.Dependency(0, 20, 19)); // Project's Risk Analysis depends on Bug Tracking
-        s_dal!.Dependency.Create(new DO.Dependency(0, 20, 14)); // Project's Risk Analysis depends on Analysis Reports
-        s_dal!.Dependency.Create(new DO.Dependency(0, 20, 13)); // Project's Risk Analysis depends on Automation in Task Management
-        s_dal!.Dependency.Create(new DO.Dependency(0, 3, 2)); // Project Tracking depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 4, 2)); // Scheduler depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 5, 3)); // Contribution Mechanisms Development depends on Project Tracking
-                                                              //s_dal!.Dependency.Create(new DO.Dependency(0, 6, 1)); // Profile Management depends on User Interface Development
-                                                              //      s_dal!.Dependency.Create(new DO.Dependency(0, 7, 1)); // Task Assignment depends on User Interface Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 8, 2)); // Document Management depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 9, 10)); // Daily Activity Monitoring depends on Online Video Calls
-        s_dal!.Dependency.Create(new DO.Dependency(0, 10, 7)); // Online Video Calls depends on Task Assignment
-        s_dal!.Dependency.Create(new DO.Dependency(0, 11, 9)); // Task Notifications System depends on Daily Activity Monitoring
-        s_dal!.Dependency.Create(new DO.Dependency(0, 12, 2)); // User Authentication depends on Task Management System Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 13, 7)); // Automation in Task Management depends on Task Assignment
-        s_dal!.Dependency.Create(new DO.Dependency(0, 14, 2)); // Analysis Reports depends on Task Management System Development
-        //s_dal!.Dependency.Create(new DO.Dependency(0, 15, 1)); // REST API Development depends on User Interface Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 16, 15)); // Version Control depends on REST API Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 17, 12)); // User Verification depends on User Authentication
-        s_dal!.Dependency.Create(new DO.Dependency(0, 18, 15)); // Technological Upgrade depends on REST API Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 19, 16)); // Bug Tracking depends on Version Control
-        s_dal!.Dependency.Create(new DO.Dependency(0, 20, 15)); // Project's Risk Analysis depends on REST API Development
-        s_dal!.Dependency.Create(new DO.Dependency(0, 14, 13)); // Analysis Reports depends on Automation in Task Management
+        s_dal!.Dependency.Create(new Dependency(0, 1, 2));
+        s_dal!.Dependency.Create(new Dependency(0, 1, 3));
+        s_dal!.Dependency.Create(new Dependency(0, 1, 4));
+        s_dal!.Dependency.Create(new Dependency(0, 1, 5));
+        s_dal!.Dependency.Create(new Dependency(0, 2, 3));
+        s_dal!.Dependency.Create(new Dependency(0, 2, 4));
+        s_dal!.Dependency.Create(new Dependency(0, 2, 5));
+        s_dal!.Dependency.Create(new Dependency(0, 3, 4));
+        s_dal!.Dependency.Create(new Dependency(0, 3, 5));
+        s_dal!.Dependency.Create(new Dependency(0, 3, 6));
+        s_dal!.Dependency.Create(new Dependency(0, 4, 5));
+        s_dal!.Dependency.Create(new Dependency(0, 4, 6));
+        s_dal!.Dependency.Create(new Dependency(0, 4, 7));
+        s_dal!.Dependency.Create(new Dependency(0, 5, 6));
+        s_dal!.Dependency.Create(new Dependency(0, 5, 7));
+        s_dal!.Dependency.Create(new Dependency(0, 5, 8));
+        s_dal!.Dependency.Create(new Dependency(0, 6, 7));
+        s_dal!.Dependency.Create(new Dependency(0, 6, 8));
+        s_dal!.Dependency.Create(new Dependency(0, 6, 9));
+        s_dal!.Dependency.Create(new Dependency(0, 7, 8));
+        s_dal!.Dependency.Create(new Dependency(0, 7, 9));
+        s_dal!.Dependency.Create(new Dependency(0, 7, 10));
+        s_dal!.Dependency.Create(new Dependency(0, 8, 9));
+        s_dal!.Dependency.Create(new Dependency(0, 8, 10));
+        s_dal!.Dependency.Create(new Dependency(0, 8, 11));
+        s_dal!.Dependency.Create(new Dependency(0, 9, 10));
+        s_dal!.Dependency.Create(new Dependency(0, 9, 11));
+        s_dal!.Dependency.Create(new Dependency(0, 9, 12));
+        s_dal!.Dependency.Create(new Dependency(0, 10, 11));
+        s_dal!.Dependency.Create(new Dependency(0, 10, 12));
+        s_dal!.Dependency.Create(new Dependency(0, 10, 13));
+        s_dal!.Dependency.Create(new Dependency(0, 11, 12));
+        s_dal!.Dependency.Create(new Dependency(0, 11, 13));
+        s_dal!.Dependency.Create(new Dependency(0, 12, 13));
+        s_dal!.Dependency.Create(new Dependency(0, 17, 19));
+        s_dal!.Dependency.Create(new Dependency(0, 17, 20));
+        s_dal!.Dependency.Create(new Dependency(0, 1, 17));
+        s_dal!.Dependency.Create(new Dependency(0, 18, 19));
+        s_dal!.Dependency.Create(new Dependency(0, 18, 20));
+        s_dal!.Dependency.Create(new Dependency(0, 1, 20));
 
     }
 

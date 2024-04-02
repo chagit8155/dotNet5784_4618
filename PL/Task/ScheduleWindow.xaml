@@ -1,0 +1,61 @@
+﻿<Window x:Class="PL.Task.ScheduleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Task"
+        mc:Ignorable="d"
+        Background="#FFC7E2E8"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Title="ScheduleWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button" >
+            <Setter Property="Background" Value="#FFD9D9D9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--Using ControlTemplate-->
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" CornerRadius="30"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <!--the content in the center-->
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!--trigget event-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background"  Value="LightSkyBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!--<DataGrid Margin="0,94,0,0"/>
+        <Label Content="Schedule Date:" FontWeight="Bold" HorizontalAlignment="Left" Margin="448,48,0,0" VerticalAlignment="Top" Height="31" Width="117"/>
+        <Button Content="Add Schedule Date"  FontWeight="Bold"  HorizontalAlignment="Left" Margin="241,48,0,0" VerticalAlignment="Top" Height="31" Width="139" Click="btnUpdateDate_Click"/>
+        <DatePicker HorizontalAlignment="Left" FontWeight="Bold"  Margin="603,48,0,0" VerticalAlignment="Top" SelectedDate="{Binding ScheduleDate, Mode=TwoWay}" Height="31" Width="130"/>
+        <TextBlock HorizontalAlignment="Left" Margin="42,110,0,0" TextWrapping="Wrap" Text="{Binding CurrentTask, Mode=OneWay}" VerticalAlignment="Top" Height="294" Width="721"/>-->
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        
+        
+        
+        <Label Content="Choose the task's schedule date: " HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="0" Margin="0,10,0,0"  FontSize="14" FontWeight="Bold"/>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0"  Content="Add Schedule Date"  Click="btnUpdateDate_Click" FontSize="14" Grid.ColumnSpan="2" Height="27" Margin="266,0,0,0" Width="134"  BorderThickness="1,3,1,3"/>
+        <DatePicker HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0" SelectedDate="{Binding ScheduleDate, Mode=TwoWay}" Margin="0,10,0,0" FontSize="14" SelectedDateFormat="Long"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Margin="0,0,0,29" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,10,30,10" TextWrapping="Wrap" Text="{Binding CurrentTask, Mode=OneWay}" Height="auto" Width="330" FontSize="12" FontWeight="Bold"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

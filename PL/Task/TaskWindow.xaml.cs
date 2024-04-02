@@ -30,6 +30,15 @@ public partial class TaskWindow : Window
             }
         }
     }
+
+    public TaskWindow(BO.Task au_Task)
+    {
+        Command = au_Task.Id == 0 ? "Add" : "Update";
+        // flagDependencyUpdated = true;
+        //אם מגיעים לפה אז addupdateTask בטוח מאותחל
+        CurrentTask = au_Task;
+    }
+
     public BO.Task CurrentTask
     {
         get { return (BO.Task)GetValue(add_updateTaskProperty); }
@@ -39,6 +48,16 @@ public partial class TaskWindow : Window
     // Using a DependencyProperty as the backing store for add_updateTask.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty add_updateTaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(new BO.Task()));
+
+    public BO.EngineerInTask Add_updateEng
+    {
+        get { return (BO.EngineerInTask)GetValue(Add_updateEngProperty); }
+        set { SetValue(Add_updateEngProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Add_updateEng.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty Add_updateEngProperty =
+        DependencyProperty.Register("Add_updateEng", typeof(BO.EngineerInTask), typeof(TaskWindow), new PropertyMetadata(null));
 
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
@@ -63,10 +82,17 @@ public partial class TaskWindow : Window
         {
             MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
+        finally
+        {
         this.Close();
         s_bl.Task.ReadAll();
+        }
     }
 
+ 
 
+    private void AddDependency_Click(object sender, RoutedEventArgs e)
+    {
+        new DependenciesWindow(CurrentTask, this).ShowDialog();
+    }
 }

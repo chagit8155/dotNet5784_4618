@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#FFC7E2E8"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="GantWindow" Height="450" Width="800">
+        Title="GantWindow" Height="500" Width="850">
     <Canvas>
         <Canvas.Resources>
             <Style TargetType="DataGridCell">
@@ -17,7 +17,7 @@
                         Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToForegroundKey}}"/>
             </Style>
         </Canvas.Resources>
-        <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible">
+        <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible" ScrollViewer.CanContentScroll="True">
         </DataGrid>
 
     </Canvas>

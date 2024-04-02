@@ -1,5 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,20 @@ internal class TaskImplementation : ITask
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl _bl = BlApi.Factory.Get();
 
-    //private bool isCircularDependency(int idDependent , int )
-    //{
-
-    //}
+    private bool isNotCircularDependency(int idDependent, int idDependsOnTask )
+    {
+        if (idDependent == idDependsOnTask)
+            return false;
+        var depList = Read(idDependsOnTask).Dependencies;
+        if (depList is null || depList.Count() == 0)  //לא תלוי בכלום 
+            return true;
+        foreach (var dep in depList)
+        {
+            if (!isNotCircularDependency(idDependent, dep.Id))
+                return false;
+        }
+        return true;
+    }
 
     /// <summary>
     /// Adds a dependency for a task on another task.
@@ -33,7 +44,17 @@ internal class TaskImplementation : ITask
             throw new BO.BlDoesNotExistException($"Task with ID={dependencyTask} was not found");
         if (_dal.Task.Read(dependsOnTask) is null)
             throw new BO.BlDoesNotExistException($"Task with ID={dependsOnTask} was not found");
+
+        if (!isNotCircularDependency(dependencyTask, dependsOnTask))
+        {
+            throw new BO.BlCannotBeUpdatedException($"Task with ID={dependsOnTask} is maked a circular dependency");
+        }
+
+
         _dal.Dependency.Create(new DO.Dependency(0, dependencyTask, dependsOnTask));
+
+        
+
     }
 
     /// <summary>
@@ -154,7 +175,7 @@ internal class TaskImplementation : ITask
         if (filter == null)
             return _dal.Task.ReadAll().Select(item => convertDOtoBO(item!)).FirstOrDefault() ?? throw new BO.BlDoesNotExistException("There are no task in the data");
         else
-            return _dal.Task.ReadAll().Select(item => convertDOtoBO(item!)).FirstOrDefault(filter) ?? throw new BO.BlDoesNotExistException($"Engineer with {filter} was not found");
+            return _dal.Task.ReadAll().Select(item => convertDOtoBO(item!)).FirstOrDefault(filter) ?? throw new BO.BlDoesNotExistException($"Task with {filter} was not found");
 
     }
 
@@ -191,6 +212,7 @@ internal class TaskImplementation : ITask
                     select new BO.TaskInList { Id = item.Id, Alias = item.Alias, Description = item.Description, Status = item.Status });
         }
         else
+           
             // Retrieve all tasks from the data layer and convert them to TaskInList objects
             return (from item in _dal.Task.ReadAll()
                     let convertItem = convertDOtoBO(item)
@@ -215,12 +237,14 @@ internal class TaskImplementation : ITask
         if (!isValidString(boTask.Alias))
             throw new BO.BlInvalidInputFormatException("Wrong data");
 
+        DO.Engineer? engineerInTask = _dal.Engineer.Read(item => item?.Id == boTask.Engineer?.Id);
+
         // Validate engineer existence
-        if (boTask.Engineer is not null && _dal.Engineer.Read(boTask.Id) is null)
+      //  if (boTask.Engineer is not null && _dal.Engineer.Read(boTask.Engineer.Id) is null )
+         if(engineerInTask == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={boTask.Engineer?.Id} was not found");
 
         // Validate complexity criteria
-        DO.Engineer? engineerInTask = _dal.Engineer.Read(item => item?.Id == boTask.Engineer?.Id);
         if (engineerInTask is not null)
         {
             if ((int)engineerInTask!.Level < (int)boTask.Complexity)
@@ -240,8 +264,7 @@ internal class TaskImplementation : ITask
             {
                 int? engineerId = boTask.Engineer is not null ? boTask.Engineer.Id : null;
                 //     DO.Task doTask = new DO.Task { Id = boTask.Id, Alias = boTask.Alias, EngineerId = engineerId, Deliverables = boTask.Deliverables, Remarks = boTask.Remarks, Description = boTask.Description };
-                DO.Task doTask = new DO.Task(boTask.Id, engineerId, false, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.ScheduledDate,
-                    bl.Clock.Date, boTask.RequiredEffortTime, (DO.EngineerExperience)boTask.Complexity, null, boTask.CompleteDate, boTask.Deliverables, boTask.Remarks);
+                DO.Task doTask = new DO.Task(boTask.Id, engineerId, false, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.ScheduledDate, bl.Clock.Date, boTask.RequiredEffortTime, (DO.EngineerExperience)boTask.Complexity, null, boTask.CompleteDate, boTask.Deliverables, boTask.Remarks);
 
                 _dal.Task.Update(doTask);
             }
@@ -300,17 +323,33 @@ internal class TaskImplementation : ITask
     /// <returns>The status of the task.</returns>
     private BO.Status calculateStatus(DO.Task task)
     {
+        //if (task.ScheduledDate == null)
+        //    return BO.Status.Unscheduled;
+        //if (task.StartDate == null)
+        //{
+        //    if (_bl.Clock.Date > task.ScheduledDate)
+        //        return BO.Status.InJeopredy;
+        //    return BO.Status.Scheduled;
+        //}
+        //if (task.CompleteDate == null)
+        //    return BO.Status.OnTrack;
+        //return BO.Status.Done;
+        Status status = 0;
+        // Check if the scheduled date is null
         if (task.ScheduledDate == null)
-            return BO.Status.Unscheduled;
-        if (task.StartDate == null)
+            status = Status.Unscheduled;
+        // Check if the start date is null
+        else if (task.StartDate == null)
         {
-            if (_bl.Clock.Date > task.ScheduledDate)
-                return BO.Status.InJeopredy;
-            return BO.Status.Scheduled;
+            status = Status.Scheduled;
         }
-        if (task.CompleteDate == null)
-            return BO.Status.OnTrack;
-        return BO.Status.Done;
+        // Check if the completion date is null
+        else if (task.CompleteDate == null)
+            status = Status.OnTrack;
+        // If all dates are not null, set status to Done
+        else
+            status = Status.Done;
+        return status;
     }
 
 
@@ -440,4 +479,30 @@ internal class TaskImplementation : ITask
         return true;
 
     }
+
+    public bool isInJeoprady(int id)
+    {
+        //משנים סטטוס לאדום של המשימה הספציפית שקיבלנו וזה עפ המשימות שהיא תלויה בהם(הקודמות) 
+        BO.Task task = Read(id);
+        if (task.ScheduledDate != null && task.StartDate == null)
+        {
+            if (bl.Clock.Date > task.ScheduledDate)
+                return true;
+            else if (task.Dependencies!.Count() == 0)
+                return false;
+            foreach (TaskInList depTask in task.Dependencies!)
+            {
+                BO.Task temp = Read(depTask.Id);
+                if (temp.StartDate != null && temp.StartDate > temp.ScheduledDate && temp.CompleteDate == null)
+                    return true;
+                if (task.CompleteDate != null && task.CompleteDate > task.ForecastDate)
+                    return true;
+
+            }
+            return false;
+        }
+        return false;
+
+    }
+
 }

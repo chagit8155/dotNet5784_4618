@@ -10,7 +10,7 @@ namespace PL.Gant;
 public partial class GantWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public IEnumerable<TaskForGant>? ListGantTasks { get; set; }
+    public IEnumerable<BO.TaskForGant>? ListGantTasks { get; set; }
 
     public DateTime StartDateColumn { get; set; }
     public DateTime CompleteDateColumn { get; set; }
@@ -18,48 +18,22 @@ public partial class GantWindow : Window
 
     public GantWindow()
     {
-        var lst = from item in s_bl.Task.ReadAll()
-                  let task = s_bl.Task.Read(item.Id)
-                  select new TaskForGant
-                  {
-                      TaskId = task.Id,
-                      TaskAlias = task.Alias,
-                      EngineerId = task.Engineer?.Id,
-                      EngineerName = task.Engineer?.Name,
-                      StartDate = calcStartDate(task.StartDate, task.ScheduledDate),
-                      CompleteDate = calcCompleteDate(task.ForecastDate, task.CompleteDate),
-                      DependentTasks = lstDependentOnId(task.Dependencies),
-                      Status = task.Status
-                  };
-        ListGantTasks = lst.OrderBy(task => task.StartDate);
-        StartDateColumn = ListGantTasks.First().StartDate;
-        CompleteDateColumn = ListGantTasks.Max(task => task.CompleteDate);
+        ListGantTasks = s_bl.CreateGantList();
+        if (ListGantTasks is not null && ListGantTasks!.Count() != 0)
+        {
+
+            StartDateColumn = ListGantTasks!.First().StartDate;
+            CompleteDateColumn = ListGantTasks!.Max(task => task.CompleteDate);
+        }
+        else
+        {
+            StartDateColumn = s_bl.Clock;
+            CompleteDateColumn = s_bl.Clock;
+        }
         InitializeComponent();
     }
 
-    private IEnumerable<int>? lstDependentOnId(IEnumerable<BO.TaskInList>? dependencies)
-    {
-        if (dependencies is null)
-            return null;
-        return from dep in dependencies
-               select dep.Id;
-    }
-
-    private DateTime calcStartDate(DateTime? startDate, DateTime? scheduledDate)
-    {
-        if (startDate == null)
-            return scheduledDate ?? s_bl.Clock;
-        else
-            return startDate ?? s_bl.Clock;
-    }
-
-    private DateTime calcCompleteDate(DateTime? forecastDate, DateTime? completeDate)
-    {
-        if (completeDate == null)
-            return forecastDate ?? s_bl.Clock;
-        else
-            return completeDate ?? s_bl.Clock;
-    }
+    
 
     private string dependenciesAsString(IEnumerable<int>? dependencies)
     {
@@ -73,6 +47,7 @@ public partial class GantWindow : Window
         }
         return str.Remove(str.Length - 1);
     }
+  
 
     private void GantGrid_Initialized(object sender, EventArgs e)
     {
@@ -104,7 +79,7 @@ public partial class GantWindow : Window
 
             if (ListGantTasks is not null)
             {
-                foreach (TaskForGant g in ListGantTasks)
+                foreach (BO.TaskForGant g in ListGantTasks)
                 {
                     DataRow row = dt.NewRow();
                     row[0] = g.TaskId;
@@ -118,12 +93,14 @@ public partial class GantWindow : Window
 
                     for (DateTime date = StartDateColumn.Date; date <= CompleteDateColumn; date = date.AddDays(1))
                     {
-                        // string strDate = $"{date.Day}/{date.Month}/{date.Year}";
+                       
                         if (date.Date < g.StartDate.Date || date.Date > g.CompleteDate.Date)
                             row[rows] = BO.Status.None;
                         else
                         {
                             row[rows] = g.Status;
+                            if (s_bl.Task.isInJeoprady(g.TaskId))
+                                row[rows] = BO.Status.InJeopredy;
                         }
                         rows++;
                     }

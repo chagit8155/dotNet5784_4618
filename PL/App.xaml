@@ -13,6 +13,14 @@
         <local:ConvertTaskToVisibility x:Key="ConvertTaskToVisibilityKey"/>
         <local:ConvertStatusToBackground x:Key="ConvertStatusToBackgroundKey"/>
         <local:ConvertStatusToForeground x:Key="ConvertStatusToForegroundKey"/>
-        
+        <local:ConvertTaskInEngineerToText x:Key="ConvertTaskInEngineerToTextKey"/>
+        <local:ConvertIntToTextForDepWindow x:Key="ConvertIntToTextForDepWindowKey"/>
+        <local:ConvertTaskInlIstToText x:Key="ConvertTaskInlIstToTextKey"/>
+        <local:ConvertBooleanToVisibility x:Key="ConvertBooleanToVisibilityKey"/>
+        <local:ConvertEngineerTaskToVisibility x:Key="ConvertEngineerTaskToVisibilityKey"/>
+
+
+
+
     </Application.Resources>
 </Application>
