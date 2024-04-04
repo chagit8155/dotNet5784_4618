@@ -66,5 +66,10 @@
         </ListView>
         <Button Content="Add New&#x0a;Engineer" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" 
                 Height="50" Width="100" Click="btnAddNewEngineer_Click"/>
+        <Button Content="Refresh List" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Left" 
+         Height="50" Width="100" Click="btnRefresh_Click" Margin="245,0,0,0"/>
+        <Ellipse HorizontalAlignment="Left" Height="26" Margin="766,0,0,0" VerticalAlignment="Center" Width="11" Fill="#FF4617E3" Grid.Row="2"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="780,0,0,0" VerticalAlignment="Center" Width="7" Fill="#FFFF3700" Grid.Row="2"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="756,0,0,0" VerticalAlignment="Center" Width="8" Fill="#FF36FF42" Grid.Row="2"/>
     </Grid>
 </Window>

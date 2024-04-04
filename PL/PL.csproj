@@ -14,8 +14,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove=".jpg" />
+	  <None Remove="Engineer\gantChartIcon.png" />
+	  <None Remove="Engineer\OIP start.jpg" />
+	  <None Remove="Engineer\project-management-icon-png-16.jpg" />
+	  <None Remove="graphic-design-bisnis.jpg" />
+	  <None Remove="OIP ad.jpg" />
+	  <None Remove="OIP Adminjpg.jpg" />
+	  <None Remove="OIP lengh.jpg" />
+	  <None Remove="OIP start.jpg" />
 	  <None Remove="project-management-icon-png-16.jpg" />
 	  <None Remove="shutterstock_734184223.jpg" />
+	  <None Remove="stock-vector-dashboard-theme-creative-infographic-612254918.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,8 +38,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include=".jpg" />
+	  <Resource Include="Engineer\gantChartIcon.png" />
+	  <Resource Include="Engineer\OIP start.jpg" />
+	  <Resource Include="Engineer\project-management-icon-png-16.jpg" />
+	  <Resource Include="graphic-design-bisnis.jpg" />
+	  <Resource Include="OIP ad.jpg" />
+	  <Resource Include="OIP Adminjpg.jpg" />
+	  <Resource Include="OIP lengh.jpg" />
+	  <Resource Include="OIP start.jpg" />
 	  <Resource Include="project-management-icon-png-16.jpg" />
 	  <Resource Include="shutterstock_734184223.jpg" />
+	  <Resource Include="stock-vector-dashboard-theme-creative-infographic-612254918.jpg" />
 	</ItemGroup>
 
 </Project>

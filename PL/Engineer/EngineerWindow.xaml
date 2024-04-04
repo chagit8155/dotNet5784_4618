@@ -38,8 +38,8 @@
         <Label Content="Email:" Margin="49,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
         <Label Content="Level:" Margin="47,10,0,0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="0"/>
         <Label Content="Cost:" Margin="47,0,0,15" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
-        <Label Content="Work on task with ID:" Margin="45,11,0,0" VerticalAlignment="Top" Grid.Row="5" Grid.Column="0" 
-               Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTaskToVisibilityKey}}" />
+        <!--<Label Content="Work on task with ID:" Margin="45,11,0,0" VerticalAlignment="Top" Grid.Row="5" Grid.Column="0" 
+               Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTaskToVisibilityKey}}" />-->
         <TextBox Margin="0,31,0,0" TextWrapping="Wrap" Width="164" VerticalAlignment="Top" Grid.Column="1"
                  Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                   IsEnabled="{Binding Id, Mode=OneTime , Converter={StaticResource ConvertTextToIsEnabledKey }}"/>
@@ -61,12 +61,18 @@
                   ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3"/>
         <TextBox Margin="0,23,0,0" TextWrapping="Wrap"  Width="164" VerticalAlignment="Top"
                  Text="{Binding  Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4" Grid.Column="1"/>
-        <TextBox Margin="0,21,0,0" TextWrapping="Wrap" Width="164" VerticalAlignment="Top" Grid.Column="1" Grid.Row="5"
-                 Text="{Binding  task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true }" 
-                 Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTaskToVisibilityKey}}" />
+       
         <Button Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" Margin="164,24,0,0" Height="38" Width="93" VerticalAlignment="Top" Padding="5" 
                  Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"                   
                  Click="btnAddUpdate_Click" />
         <Label Content="Engineer's Profile:" Margin="0,-7,0,0" VerticalAlignment="Top" Height="33" Width="175" HorizontalAlignment="Center"/>
+        <Ellipse HorizontalAlignment="Left" Height="26" Margin="240,1,0,0" VerticalAlignment="Top" Width="11" Fill="#FF4617E3" Grid.Column="2"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="254,5,0,0" VerticalAlignment="Top" Width="7" Fill="#FFFF3700" Grid.Column="2"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="230,5,0,0" VerticalAlignment="Top" Width="8" Fill="#FF36FF42" Grid.Column="2"/>
+
+
+        <!--<TextBox Margin="0,21,0,0" TextWrapping="Wrap" Width="164" VerticalAlignment="Top" Grid.Column="1" Grid.Row="5"
+          Text="{Binding  task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true }" 
+          Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTaskToVisibilityKey}}" />-->
     </Grid>
 </Window>

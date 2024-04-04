@@ -64,19 +64,16 @@ public partial class DependenciesWindow : Window
 
     private void ListBoxItem_Loaded(object sender, RoutedEventArgs e)
     {
-        if ((sender as ListBox) is not null && currentTask.Dependencies is not null)
+        TaskInList? depTask;
+        if (sender as ListBoxItem is not null)
         {
-            for (int i = 0; i < (sender as ListBox)!.Items.Count; i++)
+
+            depTask = (sender as ListBoxItem)!.Content as TaskInList;
+            if (depTask is not null)
             {
-                TaskInList? depTask = (sender as ListBox)!.Items[i] as TaskInList;
-                if (depTask is not null)
-                {
-                    if (currentTask.Dependencies!.FirstOrDefault(x => x.Id == depTask.Id) is not null)//item נמצא ברשימה של התלויות של task
-                    {
-                        (sender as ListBox)!.SelectedItems.Add((sender as ListBox)!.Items[i]);
-                    }
-                }
+                (sender as ListBoxItem)!.IsSelected = true;
             }
+
         }
     }
 
@@ -98,7 +95,6 @@ public partial class DependenciesWindow : Window
 
     private void lb_selectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
         if ((sender as ListBox) is not null)
         {
             Add_UpdateDep.Clear();
@@ -115,7 +111,20 @@ public partial class DependenciesWindow : Window
 
     private void ListBox_Loaded(object sender, RoutedEventArgs e)
     {
-
-    }
+        if ((sender as ListBox) is not null && currentTask.Dependencies is not null)
+        {
+            for (int i = 0; i < (sender as ListBox)!.Items.Count; i++)
+            {
+                TaskInList? depTask = (sender as ListBox)!.Items[i] as TaskInList;
+                if (depTask is not null)
+                {
+                    if (currentTask.Dependencies!.FirstOrDefault(x => x.Id == depTask.Id) is not null)//item נמצא ברשימה של התלויות של task
+                    {
+                        (sender as ListBox)!.SelectedItems.Add((sender as ListBox)!.Items[i]);
+                    }
+                }
+            }
+        }
+        }
 }
 

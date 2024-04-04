@@ -45,7 +45,7 @@ public partial class GantWindow : Window
 
             str += $" {item},";
         }
-        return str.Remove(str.Length - 1);
+        return str.Remove(str.Length );
     }
   
 
@@ -93,13 +93,13 @@ public partial class GantWindow : Window
 
                     for (DateTime date = StartDateColumn.Date; date <= CompleteDateColumn; date = date.AddDays(1))
                     {
-                       
+                        // string strDate = $"{date.Day}/{date.Month}/{date.Year}";
                         if (date.Date < g.StartDate.Date || date.Date > g.CompleteDate.Date)
                             row[rows] = BO.Status.None;
                         else
                         {
                             row[rows] = g.Status;
-                            if (s_bl.Task.isInJeoprady(g.TaskId))
+                            if (s_bl.Task.IsInJeoprady(g.TaskId))
                                 row[rows] = BO.Status.InJeopredy;
                         }
                         rows++;
@@ -114,6 +114,7 @@ public partial class GantWindow : Window
             }
 
         }
-    }
+    
+}
 }
 

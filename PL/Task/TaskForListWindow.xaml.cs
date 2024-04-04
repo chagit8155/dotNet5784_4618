@@ -1,5 +1,4 @@
-﻿using BO;
-using PL.Engineer;
+﻿using PL.Engineer;
 using System.Windows;
 using System.Windows.Controls;
 namespace PL.Task;
@@ -20,9 +19,10 @@ public partial class TaskForListWindow : Window
         IdEngineer = 0;
         InitializeComponent();
     }
+
     public TaskForListWindow(BO.Engineer engineer)
     {
-        Filter = item => item.Engineer is null && s_bl.Task.AreAllPreviousTasksCompleted(item.Id);
+        Filter = item => item.Engineer is null && s_bl.Task.AreAllPreviousTasksCompleted(item.Id) && item.Status != BO.Status.Done;
         IdEngineer = engineer.Id;
         InitializeComponent();
     }
@@ -58,24 +58,46 @@ public partial class TaskForListWindow : Window
         DependencyProperty.Register("StartDate", typeof(DateTime), typeof(TaskForListWindow), new PropertyMetadata(null));
 
 
-   
+
 
     private void lvSelectTaskToUpdate_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
-
-        MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task {task!.Alias}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-        if (mbResult == MessageBoxResult.OK)
+        try
         {
-            BO.Task updateTask = s_bl.Task.Read(task!.Id);
-            BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = IdEngineer };
-            updateTask!.Engineer = engInTask;
-            s_bl.Task.Update(updateTask);
-            this.Close();
-            new EngineerMainWindow(IdEngineer).Show();
+
+
+            BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+            if (IdEngineer == 0)
+            {
+                new TaskWindow(task?.Id ?? 0).ShowDialog();
+                TaskList = s_bl.Task.ReadAll(Filter);
+
+            }
+            else
+            {
+                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task {task!.Alias}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (mbResult == MessageBoxResult.OK)
+                {
+                    BO.Task updateTask = s_bl.Task.Read(task!.Id);
+                    BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = IdEngineer };
+                    updateTask!.Engineer = engInTask;
+                    s_bl.Task.Update(updateTask);
+                    this.Close();
+                    new EngineerMainWindow(IdEngineer).Show();
+                }
+            }
         }
-        new TaskWindow(task?.Id ?? 0).ShowDialog();
-        TaskList = s_bl.Task.ReadAll(Filter);
+        catch (BO.BlDoesNotExistException ex)
+        {
+            MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
+        catch (BO.BlInvalidInputFormatException ex)
+        {
+            MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
+
     }
 
     private void CbFilterByLevel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -95,10 +117,32 @@ public partial class TaskForListWindow : Window
 
     private void btnDeleteTask_Click(object sender, RoutedEventArgs e)
     {
-        if (CurrentTask is not null)
-            s_bl.Task.Delete(CurrentTask.Id);
-        MessageBoxResult successMsg = MessageBox.Show("The task was deleted successfully");
-        TaskList = s_bl.Task.ReadAll();
+        if(IdEngineer != 0)
+        {
+            MessageBoxResult successMsg = MessageBox.Show("Engineers doesnt allow to delete a task "); return;
+        }
+        try
+        {
+            if (CurrentTask is not null)
+                s_bl.Task.Delete(CurrentTask.Id);
+            MessageBoxResult successMsg = MessageBox.Show("The task was deleted successfully");
+          
+        }
+        catch (BO.BlTheProjectTimeDoesNotAllowException ex)
+        {
+            MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
+        catch (BO.BlDoesNotExistException ex)
+        {
+            MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
+        finally
+        {
+            TaskList = s_bl.Task.ReadAll();
+        }
+
     }
 
     private void wLoadTheUpdatedTasksList_Loaded(object sender, RoutedEventArgs e)
@@ -108,6 +152,10 @@ public partial class TaskForListWindow : Window
 
     private void btnAddTask_Click(object sender, RoutedEventArgs e)
     {
+        if (IdEngineer != 0)
+        {
+            MessageBoxResult successMsg = MessageBox.Show("Engineers doesnt allow to add tasks "); return;
+        }
         new TaskWindow().ShowDialog();
         TaskList = s_bl.Task.ReadAll();
     }
@@ -119,5 +167,5 @@ public partial class TaskForListWindow : Window
             CurrentTask = s_bl.Task.Read(task.Id);
     }
 
-   
+
 }

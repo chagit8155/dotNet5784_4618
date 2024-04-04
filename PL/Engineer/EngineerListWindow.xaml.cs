@@ -75,4 +75,9 @@ public partial class EngineerListWindow : Window
     {
         EngineerList = s_bl.Engineer.ReadAll();
     }
+
+    private void btnRefresh_Click(object sender, RoutedEventArgs e)
+    {
+        EngineerList = s_bl?.Engineer.ReadAll()!;
+    }
 }

@@ -110,5 +110,9 @@ public partial class AdminWindow : Window
         {
             MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        finally
+        {
+
+        }
     }
 }

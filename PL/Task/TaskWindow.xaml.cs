@@ -12,23 +12,33 @@ public partial class TaskWindow : Window
     public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
     public TaskWindow(int idTask = 0)
     {
-        InitializeComponent();
+      
         Command = (idTask == 0) ? "Add" : "Update";
         try
         {
             if (Command == "Add")
+            {
                 CurrentTask = new BO.Task();
+                Add_updateEng = new BO.EngineerInTask();
+
+            }
+
             else
+            { 
                 CurrentTask = s_bl.Task.Read(idTask);
+                Add_updateEng = CurrentTask.Engineer ?? new BO.EngineerInTask();
+            }
         }
         catch (BO.BlDoesNotExistException ex)
         {
             MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             if (mbResult == MessageBoxResult.OK)
             {
-                new EngineerListWindow().Show();
+                //  new EngineerListWindow().Show();
+                new TaskForListWindow().Show();
             }
         }
+        InitializeComponent();
     }
 
     public TaskWindow(BO.Task au_Task)
@@ -37,6 +47,7 @@ public partial class TaskWindow : Window
         // flagDependencyUpdated = true;
         //אם מגיעים לפה אז addupdateTask בטוח מאותחל
         CurrentTask = au_Task;
+        InitializeComponent();
     }
 
     public BO.Task CurrentTask
@@ -65,13 +76,23 @@ public partial class TaskWindow : Window
         {
             if (Command == "Add")
             {
+
                 s_bl.Task.Create(CurrentTask);
                 MessageBoxResult successMsg = MessageBox.Show("The new task creation is done successfully.");
             }
             else
             {
+                if (Add_updateEng.Id != 0)
+                {
+                    BO.Engineer eng = s_bl.Engineer.Read(t=> t.Id == Add_updateEng.Id);
+                    CurrentTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
+                }
+
                 s_bl.Task.Update(CurrentTask);
-                MessageBoxResult successMsg = MessageBox.Show("The task update is done successfully.");
+                MessageBoxResult successMsg = MessageBox.Show("The Task updated successfully!");
+
+                //s_bl.Task.Update(CurrentTask);
+                //MessageBoxResult successMsg = MessageBox.Show("The task update is done successfully.");
             }
         }
         catch (BO.BlInvalidInputFormatException ex)
@@ -84,12 +105,12 @@ public partial class TaskWindow : Window
         }
         finally
         {
-        this.Close();
-        s_bl.Task.ReadAll();
+            this.Close();
+            s_bl.Task.ReadAll();
         }
     }
 
- 
+
 
     private void AddDependency_Click(object sender, RoutedEventArgs e)
     {

@@ -36,6 +36,7 @@ public partial class EngineerMainWindow : Window
             updateEng.Task = null;
             s_bl.Engineer.Update(CurrentEngineer);
             CurrentEngineer = s_bl.Engineer.Read(updateEng.Id);
+            InitializeComponent();
         }
     }
 
@@ -51,7 +52,7 @@ public partial class EngineerMainWindow : Window
             }
             btnCompleteTask_click(sender, e);
         }
-        new TaskForListWindow(CurrentEngineer).Show();
+        new TaskForListWindow(CurrentEngineer).ShowDialog();
         this.Close();
         
     }

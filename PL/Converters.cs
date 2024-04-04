@@ -28,6 +28,8 @@ public class ConvertStatusToBackground : IValueConverter
     {
         switch (value)
         {
+            case "Unscheduled":
+                return Brushes.Gray;
             case "Done":
                 return Brushes.LightGreen;
             case "Scheduled":
@@ -108,6 +110,8 @@ public class ConvertStatusToForeground : IValueConverter
     {
         switch (value)
         {
+            case "Unscheduled":
+                return Brushes.Gray;
             case "Done":
                 return Brushes.LightGreen;
             case "Scheduled":
@@ -198,7 +202,9 @@ public class ConvertTextToIsEnabled : IValueConverter
     /// <returns>True if the value is 0, indicating that it should be enabled; otherwise, false.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0;
+        if (value is not null)
+            return (int)value == 0;
+        return true;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -206,6 +212,19 @@ public class ConvertTextToIsEnabled : IValueConverter
         throw new NotImplementedException();
     }
 }
+//public class ConvertText2ToIsEnabled : IValueConverter
+//{
+
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        return (int)value == 1;
+//    }
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        throw new NotImplementedException();
+//    }
+
+//}
 
 /// <summary>
 /// Converts a task value to visibility.

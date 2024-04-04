@@ -30,7 +30,7 @@
 
         <Label Content="{Binding DisplayTask, Converter={StaticResource ConvertTaskInlIstToTextKey}}" Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Center" Height="auto" Width="auto" FontSize="16" FontFamily="Calibri"  />
         <ScrollViewer Margin="20,5,20,16" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  Grid.Row="1" IsEnabled="True">
-
+           
             <ListBox IsEnabled="{Binding EditIsClicked,Converter={StaticResource ConvertTextToIsEnabledKey}}" ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="auto" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Loaded="ListBox_Loaded" SelectionChanged="lb_selectionChanged"   BorderBrush="Black" >
 
                 <!--define the template of the items in the listbox as checkbox-->
@@ -50,16 +50,12 @@
 
             </ListBox>
         </ScrollViewer>
-        <Button Background="White" Content="{Binding EditIsClicked,Converter={StaticResource ConvertIntToTextForDepWindowKey}}" Grid.Row="1" Height="42" Width="155" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnAddUpdate_Click" RenderTransformOrigin="0.5,0.5" Margin="279,251,0,0" Grid.RowSpan="2" >
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
+        <Button Background="White" Content="{Binding EditIsClicked,Converter={StaticResource ConvertIntToTextForDepWindowKey}}" Grid.Row="1" Height="42" Width="193" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnAddUpdate_Click" RenderTransformOrigin="0.5,0.5" Margin="279,251,0,0" Grid.RowSpan="2" >
+            
         </Button>
+        <Ellipse HorizontalAlignment="Left" Height="26" Margin="773,1,0,0" VerticalAlignment="Top" Width="11" Fill="#FF4617E3"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="787,5,0,0" VerticalAlignment="Top" Width="7" Fill="#FFFF3700"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="763,5,0,0" VerticalAlignment="Top" Width="8" Fill="#FF36FF42"/>
 
     </Grid>
 

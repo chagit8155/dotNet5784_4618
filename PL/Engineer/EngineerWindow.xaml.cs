@@ -63,12 +63,15 @@ public partial class EngineerWindow : Window
             if (Command == "Add")
             {
                 s_bl.Engineer.Create(CurrentEngineer);
+                s_bl.Engineer.ReadAll();
                 MessageBoxResult successMsg = MessageBox.Show("The new engineer creation is done successfully.");
             }
             else
             {
                 s_bl.Engineer.Update(CurrentEngineer);
                 MessageBoxResult successMsg = MessageBox.Show("The engineer update is done successfully.");
+                s_bl.Engineer.ReadAll();
+
             }
         }
         catch (BO.BlAlreadyExistsException ex)

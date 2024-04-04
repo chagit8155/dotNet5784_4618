@@ -82,12 +82,14 @@ public partial class StartWindow : Window
 
     private void BtnLogInAsEngineer_Click(object sender, RoutedEventArgs e)
     {
-        string id = Interaction.InputBox("Enter your Id", "Hello engineer", "0");
+        string id = Interaction.InputBox("Enter your Id", "Hello engineer!", "0");
         try
         {
-            //  pdGetPas
-            BO.Engineer engineer = s_bl.Engineer.Read(t => id == t.Id.ToString()); //if not exist thorws ex
-            new EngineerMainWindow(engineer.Id).Show();
+            if (!string.IsNullOrEmpty(id))
+            {
+                BO.Engineer engineer = s_bl.Engineer.Read(t => id == t.Id.ToString()); //if not exist thorws ex
+                new EngineerMainWindow(engineer.Id).Show();
+            }
         }
         catch (BO.BlDoesNotExistException ex)
         {
@@ -99,5 +101,9 @@ public partial class StartWindow : Window
         }
 
     }
-   
+
+    private void Button_StylusButtonDown(object sender, System.Windows.Input.StylusButtonEventArgs e)
+    {
+
+    }
 }

@@ -1,132 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>1</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>UI/UX Planning and Development</Alias>
-    <Description>User Interface Development: Designing and developing a user-friendly and modern user interface.</Description>
-    <CreatedAtDate>2024-01-27T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
-    <Copmlexity>AdvancedBeginner</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>2</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>CRUD for Tasks</Alias>
-    <Description>Task Management System Development: Creating a mechanism for adding, updating, and deleting tasks.</Description>
-    <CreatedAtDate>2024-01-24T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <Copmlexity>Advanced</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>3</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Project Management</Alias>
-    <Description>Project Tracking: Displaying status reports and progress by projects.</Description>
-    <CreatedAtDate>2024-01-23T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <Copmlexity>Beginner</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>4</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Task Scheduler</Alias>
-    <Description>Scheduler: Creating a scheduling system with reminders for important tasks.</Description>
-    <CreatedAtDate>2024-01-27T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <Copmlexity>Intermediate</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>5</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Contribution and Collaboration</Alias>
-    <Description>Contribution Mechanisms Development: Developing a feature to add groups and contribute to projects.</Description>
-    <CreatedAtDate>2024-01-22T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <Copmlexity>Intermediate</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>6</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Profile Management</Alias>
-    <Description>Profile Management: Creating and managing personal profiles for users.</Description>
-    <CreatedAtDate>2024-02-03T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <Copmlexity>Intermediate</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>7</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Task Assignment</Alias>
-    <Description>Task Assignment: Assigning tasks to users based on skills and profiles.</Description>
-    <CreatedAtDate>2024-01-25T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <Copmlexity>Advanced</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>8</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Document Management</Alias>
-    <Description>Document Management: Managing and sharing documents within the system.</Description>
-    <CreatedAtDate>2024-01-30T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <Copmlexity>Beginner</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>9</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Daily Monitoring</Alias>
-    <Description>Daily Activity Monitoring: Generating daily reports and monitoring daily activity.</Description>
-    <CreatedAtDate>2024-02-02T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <Copmlexity>AdvancedBeginner</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>10</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Video Calls</Alias>
-    <Description>Online Video Calls: Integrating video calls for face-to-face communication.</Description>
-    <CreatedAtDate>2024-01-22T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
-    <Copmlexity>Advanced</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>11</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Notifications and Reminders</Alias>
-    <Description>Task Notifications System: Implementing a notification system for important tasks.</Description>
-    <CreatedAtDate>2024-01-23T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
-    <Copmlexity>Advanced</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>12</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>User Authentication</Alias>
-    <Description>User Authentication: Adding an authentication mechanism and access control for users.</Description>
-    <CreatedAtDate>2024-02-03T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
-    <Copmlexity>Advanced</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
     <Id>13</Id>
     <IsMilestone>false</IsMilestone>
     <Alias>Automation</Alias>
     <Description>Automation in Task Management: Developing automation for routine tasks.</Description>
     <CreatedAtDate>2024-01-23T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>Intermediate</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>14</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Performance Reports</Alias>
+    <Description>Analysis Reports: Generating business analysis reports and statistics.</Description>
+    <CreatedAtDate>2024-01-18T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
     <Copmlexity>Advanced</Copmlexity>
     <Deadline xsi:nil="true" />
   </Task>
@@ -136,7 +28,8 @@
     <Alias>Public API</Alias>
     <Description>REST API Development: Creating a public REST API for external usage and integration.</Description>
     <CreatedAtDate>2024-01-28T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
     <Copmlexity>AdvancedBeginner</Copmlexity>
     <Deadline xsi:nil="true" />
   </Task>
@@ -145,7 +38,173 @@
     <IsMilestone>false</IsMilestone>
     <Alias>Version Control</Alias>
     <Description>Version Control: Developing a system to manage and preserve versions of the source code.</Description>
-    <CreatedAtDate>2024-01-24T00:00:00</CreatedAtDate>
+    <CreatedAtDate>2024-01-20T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>AdvancedBeginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>19</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Code Stability</Alias>
+    <Description>Technological Upgrade: Checking and upgrading key technologies and libraries.</Description>
+    <CreatedAtDate>2024-01-20T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <Copmlexity>Beginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>20</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Bug Tracking</Alias>
+    <Description>Bug Tracking: Implementing a bug tracking and error management system.</Description>
+    <CreatedAtDate>2024-02-03T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <Copmlexity>Advanced</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>21</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Risk Analysis</Alias>
+    <Description>The project's risk analysis</Description>
+    <CreatedAtDate>2024-02-04T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <Copmlexity>Intermediate</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>12</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>User Authentication</Alias>
+    <Description>User Authentication: Adding an authentication mechanism and access control for users.</Description>
+    <CreatedAtDate>2024-01-27T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-08T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <Copmlexity>Advanced</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>11</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Notifications and Reminders</Alias>
+    <Description>Task Notifications System: Implementing a notification system for important tasks.</Description>
+    <CreatedAtDate>2024-01-25T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-10T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>Beginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>10</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Video Calls</Alias>
+    <Description>Online Video Calls: Integrating video calls for face-to-face communication.</Description>
+    <CreatedAtDate>2024-01-20T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-13T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <Copmlexity>Intermediate</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Daily Monitoring</Alias>
+    <Description>Daily Activity Monitoring: Generating daily reports and monitoring daily activity.</Description>
+    <CreatedAtDate>2024-01-26T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-14T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>Beginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>8</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Document Management</Alias>
+    <Description>Document Management: Managing and sharing documents within the system.</Description>
+    <CreatedAtDate>2024-02-04T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-17T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>Intermediate</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Task Assignment</Alias>
+    <Description>Task Assignment: Assigning tasks to users based on skills and profiles.</Description>
+    <CreatedAtDate>2024-02-02T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <Copmlexity>AdvancedBeginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>6</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Profile Management</Alias>
+    <Description>Profile Management: Creating and managing personal profiles for users.</Description>
+    <CreatedAtDate>2024-01-23T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-22T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>Advanced</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>5</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Contribution and Collaboration</Alias>
+    <Description>Contribution Mechanisms Development: Developing a feature to add groups and contribute to projects.</Description>
+    <CreatedAtDate>2024-01-20T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-25T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <Copmlexity>Advanced</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>4</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Task Scheduler</Alias>
+    <Description>Scheduler: Creating a scheduling system with reminders for important tasks.</Description>
+    <CreatedAtDate>2024-01-28T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-27T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <Copmlexity>Beginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>Project Management</Alias>
+    <Description>Project Tracking: Displaying status reports and progress by projects.</Description>
+    <CreatedAtDate>2024-02-02T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-29T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <Copmlexity>Intermediate</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>UI/UX Planning and Development</Alias>
+    <Description>User Interface Development: Designing and developing a user-friendly and modern user interface.</Description>
+    <CreatedAtDate>2024-01-31T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-05-02T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <Copmlexity>Beginner</Copmlexity>
+    <Deadline xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <IsMilestone>false</IsMilestone>
+    <Alias>CRUD for Tasks</Alias>
+    <Description>Task Management System Development: Creating a mechanism for adding, updating, and deleting tasks.</Description>
+    <CreatedAtDate>2024-01-28T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-05-02T00:00:00</ScheduledDate>
     <RequiredEffortTime>P2D</RequiredEffortTime>
     <Copmlexity>Intermediate</Copmlexity>
     <Deadline xsi:nil="true" />
@@ -155,9 +214,10 @@
     <IsMilestone>false</IsMilestone>
     <Alias>User Verification</Alias>
     <Description>User Verification:: Adding a verification mechanism and user access management.</Description>
-    <CreatedAtDate>2024-01-31T00:00:00</CreatedAtDate>
+    <CreatedAtDate>2024-01-20T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-07T00:00:00</ScheduledDate>
     <RequiredEffortTime>P2D</RequiredEffortTime>
-    <Copmlexity>Intermediate</Copmlexity>
+    <Copmlexity>Beginner</Copmlexity>
     <Deadline xsi:nil="true" />
   </Task>
   <Task>
@@ -165,50 +225,10 @@
     <IsMilestone>false</IsMilestone>
     <Alias>Technological Upgrade</Alias>
     <Description>Technological Upgrade: Checking and upgrading key technologies and libraries..</Description>
-    <CreatedAtDate>2024-01-21T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
-    <Copmlexity>Advanced</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>19</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Code Stability</Alias>
-    <Description>Technological Upgrade: Checking and upgrading key technologies and libraries.</Description>
-    <CreatedAtDate>2024-01-21T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <Copmlexity>Intermediate</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>20</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Bug Tracking</Alias>
-    <Description>Bug Tracking: Implementing a bug tracking and error management system.</Description>
-    <CreatedAtDate>2024-01-22T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <Copmlexity>Intermediate</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>21</Id>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Risk Analysis</Alias>
-    <Description>The project's risk analysis</Description>
-    <CreatedAtDate>2024-02-02T00:00:00</CreatedAtDate>
+    <CreatedAtDate>2024-01-27T00:00:00</CreatedAtDate>
+    <ScheduledDate>2024-04-07T00:00:00</ScheduledDate>
     <RequiredEffortTime>P2D</RequiredEffortTime>
-    <Copmlexity>Beginner</Copmlexity>
-    <Deadline xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>14</Id>
-    <EngineerId>326374618</EngineerId>
-    <IsMilestone>false</IsMilestone>
-    <Alias>Performance Reports</Alias>
-    <Description>Analysis Reports: Generating business analysis reports and statistics.</Description>
-    <CreatedAtDate>2024-02-02T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P1D</RequiredEffortTime>
-    <Copmlexity>Beginner</Copmlexity>
+    <Copmlexity>Intermediate</Copmlexity>
     <Deadline xsi:nil="true" />
   </Task>
 </ArrayOfTask>

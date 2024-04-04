@@ -120,8 +120,8 @@ internal class EngineerImplementation : IEngineer
         DO.Engineer doEngineer = _dal.Engineer.Read(boEngineer.Id) ?? throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer.Id} does not exist");
 
         // Validate input data
-        if (isValidString(boEngineer.Name) || isValidCost(boEngineer.Cost) || isValidEmail(boEngineer.Email) || (DO.EngineerExperience)boEngineer.Level > doEngineer.Level)
-            throw new BO.BlInvalidInputFormatException("Wrong input");
+        //if (boEngineer.Name == null || !isValidCost(boEngineer.Cost) || !isValidEmail(boEngineer.Email) /*|| (DO.EngineerExperience)boEngineer.Level > doEngineer.Level*/)
+        //    throw new BO.BlInvalidInputFormatException("Wrong input");
 
         BO.Engineer engineerBeforeUpdate = Read(boEngineer.Id);
 
@@ -189,6 +189,9 @@ internal class EngineerImplementation : IEngineer
     private void finishTask(int id)
     {
         _dal.Task.Update(_dal.Task.Read(id)! with { CompleteDate = bl.Clock, EngineerId = null });
+        var t = bl.Task.Read(id);
+        t.Status = BO.Status.Done;
+
     }
 
     /// <summary>

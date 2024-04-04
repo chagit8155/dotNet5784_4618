@@ -8,6 +8,7 @@ public interface IBl
     public BO.ProjectStatus GetProjectStatus();
     public void CreateSchedule(DateTime date, BO.CreateScheduleOption option = BO.CreateScheduleOption.Automatically, int taskId = -1);
     public IEnumerable<BO.TaskInList?> TopologicalSort();
+    public IEnumerable<BO.Task> UpdateManuallyList();
     public IEnumerable<BO.TaskForGant>? CreateGantList();
 
     #region Clock
