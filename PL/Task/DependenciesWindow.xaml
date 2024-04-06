@@ -8,7 +8,7 @@
         Icon="D:\project2024\dotNet5784_4618\PL\Pictures\project-management-icon-png-16.jpg"
         Background="#FFC7E2E8"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="DependenciesWindow" Height="450" Width="800">
+        Title="DependenciesWindow" Height="490" Width="820">
 
     <Window.Resources>
         <Style TargetType="Label">

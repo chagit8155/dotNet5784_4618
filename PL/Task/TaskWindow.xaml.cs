@@ -114,6 +114,6 @@ public partial class TaskWindow : Window
 
     private void AddDependency_Click(object sender, RoutedEventArgs e)
     {
-        new DependenciesWindow(CurrentTask, this).ShowDialog();
+        new DependenciesWindow(CurrentTask).ShowDialog();
     }
 }

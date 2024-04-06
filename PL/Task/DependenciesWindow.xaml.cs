@@ -1,7 +1,6 @@
 ﻿using BO;
 using System.Windows;
 using System.Windows.Controls;
-
 namespace PL.Task;
 
 /// <summary>
@@ -12,7 +11,6 @@ public partial class DependenciesWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public BO.Task currentTask { get; set; }
     public BO.TaskInList DisplayTask { get; set; }
-    public TaskWindow Tw { get; set; }
     public List<TaskInList> Add_UpdateDep { get; set; }
 
     public int EditIsClicked
@@ -24,10 +22,6 @@ public partial class DependenciesWindow : Window
     // Using a DependencyProperty as the backing store for EditIsClicked.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty EditIsClickedProperty =
         DependencyProperty.Register("EditIsClicked", typeof(int), typeof(DependenciesWindow), new PropertyMetadata(1));
-
-
-
-
     public IEnumerable<BO.TaskInList> Dependencies
     {
         get { return (IEnumerable<BO.TaskInList>)GetValue(DependenciesProperty); }
@@ -48,14 +42,12 @@ public partial class DependenciesWindow : Window
         return false;
 
     }
-    public DependenciesWindow(BO.Task auTask, TaskWindow tw)
+    public DependenciesWindow(BO.Task auTask)
     {
         DisplayTask = new TaskInList() { Id = auTask.Id, Alias = auTask.Alias, Description = auTask.Description, Status = auTask.Status };
         InitializeComponent();
         Dependencies = s_bl.Task.ReadAll(task => task.Id != auTask.Id).OrderBy(task => task.Id);
         currentTask = auTask;
-
-        Tw = tw;
         Add_UpdateDep = new List<TaskInList>();
         //ListBox lb=new ListBox();
         //foreach(var dep in task.Dependencies)

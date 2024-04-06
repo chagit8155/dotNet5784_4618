@@ -64,7 +64,7 @@
         <Label Content="Remarks :" FontSize="12" Margin="48,27,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.Row="11" RenderTransformOrigin="0.599,0.985" Grid.RowSpan="2"/>
 
         <Button Grid.Column="1" Content="Add Dependency" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="164" Height="22" Click="AddDependency_Click"/>
-        <TextBox Margin="60,0,0,0" TextWrapping="Wrap" Width="183" VerticalAlignment="Center" Grid.Column="1"     IsEnabled="{Binding add_updateTask.Id, Mode=OneTime, Converter={StaticResource ConvertTextToIsEnabledKey}}"           
+        <TextBox Margin="60,0,0,0" TextWrapping="Wrap" Width="183" VerticalAlignment="Center" Grid.Column="1"  IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertTextToIsEnabledKey}}"           
                  Text="{Binding  CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Height="25"  />
         <TextBox Margin="60,0,0,0" TextWrapping="Wrap" Width="180" VerticalAlignment="Center" Grid.Column="1"
                  Text="{Binding  CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="22" RenderTransformOrigin="0.5,0.5"  Grid.Row="1"   >

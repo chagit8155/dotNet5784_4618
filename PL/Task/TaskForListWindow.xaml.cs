@@ -104,12 +104,11 @@ public partial class TaskForListWindow : Window
     {
         TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Complexity == Complexity);
     }
-    private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
-    {
-        TaskList = s_bl.Task.ReadAll(task => task.StartDate == StartDate);
-    }
+
     private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        if (Status == BO.Status.None)
+            TaskList = s_bl.Task.ReadAll();
 
         TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status);
 
@@ -117,7 +116,7 @@ public partial class TaskForListWindow : Window
 
     private void btnDeleteTask_Click(object sender, RoutedEventArgs e)
     {
-        if(IdEngineer != 0)
+        if (IdEngineer != 0)
         {
             MessageBoxResult successMsg = MessageBox.Show("Engineers doesnt allow to delete a task "); return;
         }
@@ -126,7 +125,7 @@ public partial class TaskForListWindow : Window
             if (CurrentTask is not null)
                 s_bl.Task.Delete(CurrentTask.Id);
             MessageBoxResult successMsg = MessageBox.Show("The task was deleted successfully");
-          
+
         }
         catch (BO.BlTheProjectTimeDoesNotAllowException ex)
         {
