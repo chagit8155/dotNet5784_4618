@@ -8,21 +8,19 @@ internal class Bl : IBl
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
 
-    private static DateTime s_Clock = DateTime.Now;
     public IEngineer Engineer => new EngineerImplementation(this);
     public ITask Task => new TaskImplementation(this);
-    //  public DateTime? StartProjectDate { get => _dal.StartProjectDate; set => _dal.StartProjectDate = value; }
-    //  public DateTime? EndProjectDate { get => EndProjectDate; init => EndProjectDate = value; }
     public void InitializeDB() => DalTest.Initialization.Do();
     public void ResetDB() => DalTest.Initialization.Reset();
 
+    private static DateTime s_Clock = DateTime.Now;
     public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
     public DateTime? StartProjectDate
     {
         get => _dal.StartProjectDate;
         set
         {
-            if (value <= Clock)
+            if (value < Clock.Date)
                 throw new BO.BlincorrectDateOrderException("The project can't be started before today's date");
             _dal.StartProjectDate = value;
         }
@@ -159,7 +157,7 @@ internal class Bl : IBl
         BO.Task dep = Task.Read(id);
         if (dependOnTasks == null || dependOnTasks.Count() == 1)
             return;
-        if (GetProjectStatus() == BO.ProjectStatus.Execution )
+        if (GetProjectStatus() == BO.ProjectStatus.Execution)
             return;
         foreach (TaskInList task in dependOnTasks!)
         {
@@ -196,7 +194,7 @@ internal class Bl : IBl
             tasks.RemoveAll(t => t.Id == q.First());
             tasks.Add(currentTask);
             q.Dequeue();
-        }    
+        }
         return tasks;
     }
     public IEnumerable<TaskForGant>? CreateGantList()
@@ -239,120 +237,94 @@ internal class Bl : IBl
             return completeDate ?? Clock;
     }
 
-    public IEnumerable<TaskInList?> TopologicalSort()
-    {
-        throw new NotImplementedException();
-    }
+    ///// <summary>
+    ///// פונקציה זו מקבלת את רשימת המשימות ואת רשימת התלויות ביניהן ומבצעת מיון טופולוגי על המשימות.
+    ///// מיון טופולוגי מאפשר לנו לסדר את המשימות בסדר הנכון שבו המשימות ניתנות לביצוע, 
+    ///// כך שלכל משימה תהיה תלות רק במשימות שכבר בוצעו או שאין להן תלות.
+    ///// </summary>
+    ///// <param name="tasks">רשימת המשימות למיון</param>
+    ///// <param name="dependencies">רשימת התלויות בין המשימות</param>
+    ///// <returns>רשימת המשימות ממוינת על פי מיון טופולוגי</returns>
+    //public IEnumerable<TaskInList?> TopologicalSort()
+    //{
+    //    IEnumerable<BO.TaskInList> tasks = Task.ReadAll();
 
+    //    IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll()!;
+    //    // יצירת גרף ריק
+    //    Dictionary<int, List<int?>> graph = new Dictionary<int, List<int?>>();
+    //    // מילוי הגרף בהתאם לתלויות
+    //    foreach (var task in tasks)
+    //    {
+    //        graph.Add(task.Id, new List<int?>());
+    //    }
+    //    foreach (var dependency in dependencies)
+    //    {
+    //        if (dependency.DependentTask != null)
+    //        {
+    //            graph[(int)dependency.DependentTask].Add(dependency.DependsOnTask);
+    //        }
+    //    }
 
+    //    // מיון טופולוגי
+    //    Stack<int?> stack = new Stack<int?>();
+    //    HashSet<int> visited = new HashSet<int>();
+    //    foreach (var key in graph.Keys)
+    //    {
+    //        if (!visited.Contains(key))
+    //        {
+    //            TopologicalSortUtil(key, graph, stack, visited);
+    //        }
+    //    }
 
+    //    // בניית רשימת המשימות מסודרת על פי מיון טופולוגי
+    //    List<TaskInList?> sortedTasks = new List<TaskInList?>();
+    //    //while (stack.Any())
+    //    //{
+    //    //   // int id = stack.TryPop();
 
+    //    //    sortedTasks.Add(tasks.FirstOrDefault(t => stack.Pop(t.Id)));
+    //    //}
+    //    for (int i = 0; i < stack.Count(); i++)
+    //    {
+    //        // if
+    //        int? x = stack.Pop();
 
+    //        sortedTasks.Add(tasks.FirstOrDefault(t => x == t.Id));
+    //    }
 
+    //    return sortedTasks;
+    //}
 
+    ///// <summary>
+    ///// פונקציה עזר למיון טופולוגי.
+    ///// פונקציה זו מבצעת סריקה רקורסיבית של הגרף ומוסיפה את הצמתים לערימה בסדר הנכון לפי מיון טופולוגי.
+    ///// </summary>
+    ///// <param name="v">הצומת הנוכחית</param>
+    ///// <param name="graph">הגרף שבו מבוצע הסריקה</param>
+    ///// <param name="stack">הערימה שבה מתבצע הסידור לפי מיון טופולוגי</param>
+    ///// <param name="visited">רשימת הצמתים שנבדקו</param>
+    //private void TopologicalSortUtil(int v, Dictionary<int, List<int?>> graph, Stack<int?> stack, HashSet<int> visited)
+    //{
+    //    // הוספת הצומת לרשימת הצמתים שביקרנו בהם
+    //    visited.Add(v);
+    //    // עבור כל שכני הצומת
+    //    foreach (var neighbor in graph[v])
+    //    {
+    //        if (neighbor == null) continue;
+    //        else
+    //        {
+    //            // אם השכן לא נבדק עדיין, נבצע עליו רקורסיה
+    //            if (!visited.Contains((int)neighbor))
+    //            {
+    //                TopologicalSortUtil((int)neighbor, graph, stack, visited);
+    //            }
+    //        }
+    //    }
+    //    // כשסיימנו לבדוק את כל השכנים, נכניס את הצומת לערימה
+    //    stack.Push(v);
+    //}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            ///// <summary>
-            ///// פונקציה זו מקבלת את רשימת המשימות ואת רשימת התלויות ביניהן ומבצעת מיון טופולוגי על המשימות.
-            ///// מיון טופולוגי מאפשר לנו לסדר את המשימות בסדר הנכון שבו המשימות ניתנות לביצוע, 
-            ///// כך שלכל משימה תהיה תלות רק במשימות שכבר בוצעו או שאין להן תלות.
-            ///// </summary>
-            ///// <param name="tasks">רשימת המשימות למיון</param>
-            ///// <param name="dependencies">רשימת התלויות בין המשימות</param>
-            ///// <returns>רשימת המשימות ממוינת על פי מיון טופולוגי</returns>
-            //public IEnumerable<TaskInList?> TopologicalSort()
-            //{
-            //    IEnumerable<BO.TaskInList> tasks = Task.ReadAll();
-
-            //    IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll()!;
-            //    // יצירת גרף ריק
-            //    Dictionary<int, List<int?>> graph = new Dictionary<int, List<int?>>();
-            //    // מילוי הגרף בהתאם לתלויות
-            //    foreach (var task in tasks)
-            //    {
-            //        graph.Add(task.Id, new List<int?>());
-            //    }
-            //    foreach (var dependency in dependencies)
-            //    {
-            //        if (dependency.DependentTask != null)
-            //        {
-            //            graph[(int)dependency.DependentTask].Add(dependency.DependsOnTask);
-            //        }
-            //    }
-
-            //    // מיון טופולוגי
-            //    Stack<int?> stack = new Stack<int?>();
-            //    HashSet<int> visited = new HashSet<int>();
-            //    foreach (var key in graph.Keys)
-            //    {
-            //        if (!visited.Contains(key))
-            //        {
-            //            TopologicalSortUtil(key, graph, stack, visited);
-            //        }
-            //    }
-
-            //    // בניית רשימת המשימות מסודרת על פי מיון טופולוגי
-            //    List<TaskInList?> sortedTasks = new List<TaskInList?>();
-            //    //while (stack.Any())
-            //    //{
-            //    //   // int id = stack.TryPop();
-
-            //    //    sortedTasks.Add(tasks.FirstOrDefault(t => stack.Pop(t.Id)));
-            //    //}
-            //    for (int i = 0; i < stack.Count(); i++)
-            //    {
-            //        // if
-            //        int? x = stack.Pop();
-
-            //        sortedTasks.Add(tasks.FirstOrDefault(t => x == t.Id));
-            //    }
-
-            //    return sortedTasks;
-            //}
-
-            ///// <summary>
-            ///// פונקציה עזר למיון טופולוגי.
-            ///// פונקציה זו מבצעת סריקה רקורסיבית של הגרף ומוסיפה את הצמתים לערימה בסדר הנכון לפי מיון טופולוגי.
-            ///// </summary>
-            ///// <param name="v">הצומת הנוכחית</param>
-            ///// <param name="graph">הגרף שבו מבוצע הסריקה</param>
-            ///// <param name="stack">הערימה שבה מתבצע הסידור לפי מיון טופולוגי</param>
-            ///// <param name="visited">רשימת הצמתים שנבדקו</param>
-            //private void TopologicalSortUtil(int v, Dictionary<int, List<int?>> graph, Stack<int?> stack, HashSet<int> visited)
-            //{
-            //    // הוספת הצומת לרשימת הצמתים שביקרנו בהם
-            //    visited.Add(v);
-            //    // עבור כל שכני הצומת
-            //    foreach (var neighbor in graph[v])
-            //    {
-            //        if (neighbor == null) continue;
-            //        else
-            //        {
-            //            // אם השכן לא נבדק עדיין, נבצע עליו רקורסיה
-            //            if (!visited.Contains((int)neighbor))
-            //            {
-            //                TopologicalSortUtil((int)neighbor, graph, stack, visited);
-            //            }
-            //        }
-            //    }
-            //    // כשסיימנו לבדוק את כל השכנים, נכניס את הצומת לערימה
-            //    stack.Push(v);
-            //}
-          
-        }
+}
 
 
 

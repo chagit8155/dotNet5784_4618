@@ -97,6 +97,11 @@ public partial class TaskForListWindow : Window
             MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
         }
+        catch (BO.BlCannotBeUpdatedException ex)
+        {
+            MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
 
     }
 

@@ -8,12 +8,13 @@
         mc:Ignorable="d"
         Background="#FFC7E2E8"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="StartWindow" Height="500" Width="855" Icon="/project-management-icon-png-16.jpg">
+        Title="Home" Height="500" Width="855" Icon="/home.png">
 
     <!--DarkCyan-->
     <Window.Resources>
         <Style TargetType="Button" >
             <Setter Property="Background" Value="#FFD9D9D9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <!--Using ControlTemplate-->
@@ -35,6 +36,7 @@
         </Style>
     </Window.Resources>
 
+
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -51,7 +53,8 @@
 
         </Grid.ColumnDefinitions>
 
-        <Label Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="129" Width="356" Margin="156,0,0,0" RenderTransformOrigin="0.499,0.537" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1"/>
+
+        <Label Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="129" Width="380" Margin="156,0,0,0" RenderTransformOrigin="0.499,0.537" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1"/>
         <!--<Label Content="The project status now is: "  FontWeight="Bold" FontSize="15" HorizontalAlignment="Left" Margin="509,204,0,0" Grid.Row="1" VerticalAlignment="Top" Height="36" Width="189" Grid.Column="3"/>-->
 
         <Button Content="Add Hour"  RenderTransformOrigin="0.62,1.295" Margin="299,134,409,247" Click="btnAddHour_click"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" />
@@ -60,6 +63,7 @@
         <Button Content="Admin" HorizontalAlignment="Left" Margin="321,294,0,0" VerticalAlignment="Top" Height="36" Width="100" Click="BtnLogInAsAdmin_Click" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
         <Button Content="Engineer" HorizontalAlignment="Left" Margin="212,294,0,0" VerticalAlignment="Top" Height="37" Width="100" 
                 Click="BtnLogInAsEngineer_Click" Grid.Row="1" Grid.Column="2"/>
+        <Button Click="btnReset_Click" Grid.Row="1" Content="Reset DB" FontWeight="Bold" HorizontalAlignment="Left" Width="101" Margin="347,341,0,45" RenderTransformOrigin="0.591,0.506" Grid.Column="3"/>
 
         <!--<Label Content="{Binding CurrentProjectStatus }" FontWeight="Bold" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Top" Height="41" Margin="474,237,56,0" RenderTransformOrigin="0.499,0.537" Grid.Row="1" Grid.Column="3"/>-->
 
@@ -68,12 +72,12 @@
 
         <Label Content="Select your role:"  FontWeight="Bold" Margin="212,262,405,132" Grid.Row="1" RenderTransformOrigin="0.243,0.069" Grid.Column="2" Grid.ColumnSpan="2"/>
 
-        <Ellipse  HorizontalAlignment="Right" Height="33" Margin="544,17,0,0" VerticalAlignment="Top" Width="13" Fill="#FF4617E3"/>
-        <Ellipse HorizontalAlignment="Right" Height="21" Margin="560,23,0,0" VerticalAlignment="Top" Width="9" Fill="#FFFF3700"/>
-        <Ellipse HorizontalAlignment="Right" Height="21" Margin="532,23,0,0" VerticalAlignment="Top" Width="9" Fill="#FF36FF42"/>
+
+
         <Ellipse HorizontalAlignment="Left" Height="24" Margin="303,0,0,0" VerticalAlignment="Center" Width="8" Fill="#FF4617E3" Grid.Column="3"/>
         <Ellipse HorizontalAlignment="Left" Height="16" Margin="313,0,0,0" VerticalAlignment="Center" Width="5" Fill="#FFFF3700" Grid.Column="3"/>
         <Ellipse HorizontalAlignment="Left" Height="16" Margin="296,0,0,0" VerticalAlignment="Center" Width="6" Fill="#FF36FF42" Grid.Column="3"/>
+
         <Label Grid.Column="3"  FontWeight="Bold" Content="Empower your projects" HorizontalAlignment="Left" Margin="318,0,0,0" VerticalAlignment="Center" Height="26" Width="158"/>
 
 

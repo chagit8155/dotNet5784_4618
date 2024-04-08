@@ -13,6 +13,7 @@ public partial class AdminWindow : Window
 
     public AdminWindow()
     {
+
         InitializeComponent();
         startProject = s_bl.StartProjectDate;
     }
@@ -95,6 +96,10 @@ public partial class AdminWindow : Window
                 {
                     MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (BO.BlincorrectDateOrderException ex)
+                {
+                    MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 catch
                 {
                     MessageBoxResult mbResultEx = MessageBox.Show("UnKnown error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -107,6 +112,10 @@ public partial class AdminWindow : Window
         }
         catch (BO.BlCannotBeUpdatedException ex)
 
+        {
+            MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlincorrectDateOrderException ex)
         {
             MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }

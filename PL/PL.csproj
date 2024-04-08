@@ -15,10 +15,22 @@
 
 	<ItemGroup>
 	  <None Remove=".jpg" />
+	  <None Remove="admin-alt.png" />
+	  <None Remove="Engineer\6234252.jpg" />
+	  <None Remove="Engineer\coins.png" />
+	  <None Remove="Engineer\envelope.png" />
+	  <None Remove="Engineer\fingerprint.png" />
 	  <None Remove="Engineer\gantChartIcon.png" />
+	  <None Remove="Engineer\head-side.png" />
+	  <None Remove="Engineer\id-badge.png" />
 	  <None Remove="Engineer\OIP start.jpg" />
 	  <None Remove="Engineer\project-management-icon-png-16.jpg" />
+	  <None Remove="Engineer\user-pen.png" />
+	  <None Remove="Engineer\users-alt.png" />
+	  <None Remove="Engineer\water-rise.png" />
+	  <None Remove="Gantt Chart\chart-gantt.png" />
 	  <None Remove="graphic-design-bisnis.jpg" />
+	  <None Remove="home.png" />
 	  <None Remove="OIP ad.jpg" />
 	  <None Remove="OIP Adminjpg.jpg" />
 	  <None Remove="OIP lengh.jpg" />
@@ -26,6 +38,19 @@
 	  <None Remove="project-management-icon-png-16.jpg" />
 	  <None Remove="shutterstock_734184223.jpg" />
 	  <None Remove="stock-vector-dashboard-theme-creative-infographic-612254918.jpg" />
+	  <None Remove="Task\assessment-alt.png" />
+	  <None Remove="Task\calendar-clock.png" />
+	  <None Remove="Task\completed.png" />
+	  <None Remove="Task\customize.png" />
+	  <None Remove="Task\head-side.png" />
+	  <None Remove="Task\id-badge.png" />
+	  <None Remove="Task\interrogation.png" />
+	  <None Remove="Task\list-check.png" />
+	  <None Remove="Task\octagon-exclamation.png" />
+	  <None Remove="Task\priority-arrow.png" />
+	  <None Remove="Task\ranking-podium.png" />
+	  <None Remove="Task\time-fast.png" />
+	  <None Remove="Task\wishlist-star.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -39,17 +64,34 @@
 
 	<ItemGroup>
 	  <Resource Include=".jpg" />
-	  <Resource Include="Engineer\gantChartIcon.png" />
-	  <Resource Include="Engineer\OIP start.jpg" />
-	  <Resource Include="Engineer\project-management-icon-png-16.jpg" />
+	  <Resource Include="admin-alt.png" />
+	  <Resource Include="Engineer\6234252.jpg" />
+	  <Resource Include="Engineer\coins.png" />
+	  <Resource Include="Engineer\envelope.png" />
+	  <Resource Include="Engineer\fingerprint.png" />
+	  <Resource Include="Engineer\head-side.png" />
+	  <Resource Include="Engineer\id-badge.png" />
+	  <Resource Include="Engineer\user-pen.png" />
+	  <Resource Include="Engineer\users-alt.png" />
+	  <Resource Include="Engineer\water-rise.png" />
+	  <Resource Include="Gantt Chart\chart-gantt.png" />
 	  <Resource Include="graphic-design-bisnis.jpg" />
-	  <Resource Include="OIP ad.jpg" />
-	  <Resource Include="OIP Adminjpg.jpg" />
+	  <Resource Include="home.png" />
 	  <Resource Include="OIP lengh.jpg" />
-	  <Resource Include="OIP start.jpg" />
-	  <Resource Include="project-management-icon-png-16.jpg" />
 	  <Resource Include="shutterstock_734184223.jpg" />
-	  <Resource Include="stock-vector-dashboard-theme-creative-infographic-612254918.jpg" />
+	  <Resource Include="Task\assessment-alt.png" />
+	  <Resource Include="Task\calendar-clock.png" />
+	  <Resource Include="Task\completed.png" />
+	  <Resource Include="Task\customize.png" />
+	  <Resource Include="Task\head-side.png" />
+	  <Resource Include="Task\id-badge.png" />
+	  <Resource Include="Task\interrogation.png" />
+	  <Resource Include="Task\list-check.png" />
+	  <Resource Include="Task\octagon-exclamation.png" />
+	  <Resource Include="Task\priority-arrow.png" />
+	  <Resource Include="Task\ranking-podium.png" />
+	  <Resource Include="Task\time-fast.png" />
+	  <Resource Include="Task\wishlist-star.png" />
 	</ItemGroup>
 
 </Project>

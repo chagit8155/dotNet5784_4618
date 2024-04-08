@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#FFC7E2E8"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="GantWindow" Height="500" Width="850">
+        Title="Gantt Chart" Height="500" Width="850" Icon="/Gantt Chart/chart-gantt.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -44,7 +44,7 @@
             <TextBlock Grid.Column="1" Grid.Row="1" Background="Yellow"/>
             <TextBlock Grid.Column="1" Grid.Row="2" Background="LightSkyBlue"/>
             <TextBlock Grid.Column="1" Grid.Row="3" Background="LightGreen"/>
-            <TextBlock Grid.Column="1" Grid.Row="4" Background="LightPink"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Background="DeepPink"/>
         </Grid>
         <Ellipse HorizontalAlignment="Left" Height="26" Margin="20,6,0,0" VerticalAlignment="Top"  Width="11" Fill="#FF4617E3" Grid.Row="1" />
         <Ellipse HorizontalAlignment="Left" Height="18" Margin="34,10,0,0" VerticalAlignment="Top"  Width="7" Fill="#FFFF3700" Grid.Row="1" />

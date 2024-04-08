@@ -8,7 +8,7 @@
         Background="#FFC7E2E8"
         Loaded="loadTheUpdatedEngineersList_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="EngineerListWindow" Height="640" Width="800">
+        Title="Engineers List" Height="645" Width="800" Icon="/Engineer/users-alt.png">
 
     <Window.Resources>
         <Style TargetType="Button" >

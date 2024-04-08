@@ -6,9 +6,32 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="EngineerMainWindow" Height="500" Width="900">
+        Title="Engineer View" Height="500" Width="900" Icon="/Engineer/head-side.png">
     <!--DataContext="{Binding  CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"-->
 
+    <Window.Resources>
+        <Style TargetType="Button" >
+            <Setter Property="Background" Value="#FFD9D9D9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--Using ControlTemplate-->
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" CornerRadius="30"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <!--the content in the center-->
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!--trigget event-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background"  Value="LightSkyBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -32,15 +55,24 @@
         " RenderTransformOrigin="0.522,0.543" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" FontWeight="Bold"/>
 
         <DockPanel LastChildFill="False" Grid.Column="2" Grid.Row="0">
-            <Label Content="Hello " FontWeight="Bold" DockPanel.Dock="Left" Canvas.Left="45" Canvas.Top="27"  FontSize="16" Width="49"  />
-            <Label Content="{Binding CurrentEngineer.Name , Mode=OneWay}" Height="50" Width="142"  DockPanel.Dock="Right" FontSize="16"   />
+            <Label Content="{Binding CurrentEngineer.Name , Mode=OneWay}" Height="50" Width="142" FontWeight="Bold"  DockPanel.Dock="Right" FontSize="16"   />
+            <Label Content="Hello " FontWeight="Bold"  FontSize="16" DockPanel.Dock="Left" Width="49" Height="49" RenderTransformOrigin="0.5,0.5"  >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-1.909"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.767"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
         </DockPanel>
 
-        <Button Content="Task is Completed" FontWeight="Bold" BorderBrush="#FFD0ECF6" FontSize="16"  Click="btnCompleteTask_click" Background="#FFD4F4FF"
+        <Button Content="Task is Completed" FontWeight="Bold"  FontSize="16"  Click="btnCompleteTask_click" 
                 Visibility="{Binding CurrentEngineer.Task, Mode=TwoWay, Converter={StaticResource ConvertEngineerTaskToVisibilityKey}}" 
                 Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Center" Height="47" Width="156" Margin="0,62,0,0" />
-        <Button Content="Choose new task to work on" Width="280" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#FFD0ECF6"
-                Click="btnChooseNewTask_click"  Grid.Row="1" Height="30" FontSize="16" FontWeight="Bold" Background="#FFD4F4FF" BorderThickness="1" />
+        <Button Content="Choose new task to work on" Width="254" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Click="btnChooseNewTask_click"  Grid.Row="1" Height="50" FontSize="16" FontWeight="Bold"  BorderThickness="1" Margin="0,5,0,0" Grid.RowSpan="2" />
 
         <Grid Grid.Row="3" Grid.Column="3">
             <Grid.RowDefinitions>
@@ -66,7 +98,7 @@
 
 
         <Grid.Background>
-            <ImageBrush ImageSource="/Engineer/project-management-icon-png-16.jpg"/>
+            <ImageBrush ImageSource="/Engineer/6234252.jpg" Opacity="0.4" />
         </Grid.Background>
 
 

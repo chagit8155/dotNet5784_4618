@@ -37,7 +37,7 @@ public class ConvertStatusToBackground : IValueConverter
             case "OnTrack":
                 return Brushes.LightSkyBlue;
             case "InJeopredy":
-                return Brushes.LightPink;
+                return Brushes.DeepPink;
             default:
                 return Brushes.White;
         }
@@ -119,7 +119,7 @@ public class ConvertStatusToForeground : IValueConverter
             case "OnTrack":
                 return Brushes.LightSkyBlue;
             case "InJeopredy":
-                return Brushes.LightPink;
+                return Brushes.DeepPink;
             case "None":
                 return Brushes.White;
             default:

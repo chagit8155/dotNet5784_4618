@@ -145,7 +145,7 @@ internal class EngineerImplementation : IEngineer
         // Update the engineer
         try
         {
-            DO.Engineer updateEngineer = new DO.Engineer(boEngineer.Id, boEngineer.Email, boEngineer.Cost, boEngineer.Name, (DO.EngineerExperience)boEngineer.Level);
+            DO.Engineer updateEngineer = new DO.Engineer(boEngineer.Id, boEngineer.Name, boEngineer.Cost, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level);
             _dal.Engineer.Update(updateEngineer);
         }
         catch (DO.DalAlreadyExistsException ex)

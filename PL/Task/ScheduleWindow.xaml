@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#FFC7E2E8"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="ScheduleWindow" Height="500" Width="850">
+        Title="Project Schedule" Height="500" Width="850" Icon="/Task/calendar-clock.png">
     <Window.Resources>
         <Style TargetType="Button" >
             <Setter Property="Background" Value="#FFD9D9D9"/>

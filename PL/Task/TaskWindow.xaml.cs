@@ -19,14 +19,14 @@ public partial class TaskWindow : Window
             if (Command == "Add")
             {
                 CurrentTask = new BO.Task();
-                Add_updateEng = new BO.EngineerInTask();
+                CurrentEngineerInTask = new BO.EngineerInTask();
 
             }
 
             else
             { 
                 CurrentTask = s_bl.Task.Read(idTask);
-                Add_updateEng = CurrentTask.Engineer ?? new BO.EngineerInTask();
+                CurrentEngineerInTask = CurrentTask.Engineer ?? new BO.EngineerInTask();
             }
         }
         catch (BO.BlDoesNotExistException ex)
@@ -60,7 +60,7 @@ public partial class TaskWindow : Window
     public static readonly DependencyProperty add_updateTaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(new BO.Task()));
 
-    public BO.EngineerInTask Add_updateEng
+    public BO.EngineerInTask CurrentEngineerInTask
     {
         get { return (BO.EngineerInTask)GetValue(Add_updateEngProperty); }
         set { SetValue(Add_updateEngProperty, value); }
@@ -82,9 +82,9 @@ public partial class TaskWindow : Window
             }
             else
             {
-                if (Add_updateEng.Id != 0)
+                if (CurrentEngineerInTask.Id != null)
                 {
-                    BO.Engineer eng = s_bl.Engineer.Read(t=> t.Id == Add_updateEng.Id);
+                    BO.Engineer eng = s_bl.Engineer.Read(t=> t.Id == CurrentEngineerInTask.Id);
                     CurrentTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
                 }
 

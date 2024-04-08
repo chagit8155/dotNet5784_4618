@@ -198,6 +198,8 @@ internal class TaskImplementation : ITask
         if (boTask.Alias == null)
             throw new BO.BlInvalidInputFormatException("Wrong data");
 
+      
+
         DO.Engineer? engineerInTask = _dal.Engineer.Read(item => item?.Id == boTask.Engineer?.Id);
 
         //// Validate engineer existence
@@ -210,6 +212,8 @@ internal class TaskImplementation : ITask
         {
             if ((int)engineerInTask!.Level < (int)boTask.Complexity)
                 throw new BO.BlInvalidInputFormatException("Fail to update Complexity - Does not fit the criteria");
+            if (bl.GetProjectStatus() == BO.ProjectStatus.Planing)
+                throw new BO.BlCannotBeUpdatedException("The project has not started ");
         }
         try
         {

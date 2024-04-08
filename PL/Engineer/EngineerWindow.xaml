@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding  CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-        Title="EngineerWindow" Height="450" Width="800" Background="#FFC7E2E8">
+        Title="Engineer's Profile" Height="450" Width="525" Background="#FFC7E2E8" Icon="/Engineer/user-pen.png">
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -14,12 +14,20 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
-        <Style TargetType="TextBox">
+
+        <Style  TargetType="TextBox" >
             <Setter Property="FontSize" Value="15" />
             <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="BorderBrush" Value="#707070"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
         </Style>
+
     </Window.Resources>
+
     <Grid ShowGridLines="False">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -31,7 +39,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+           
         </Grid.ColumnDefinitions>
         <Label Content="ID:" Margin="47,26,0,0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.599,0.985"/>
         <Label Content="Name:" Margin="47,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.04,-0.385" Grid.Row="1" Grid.Column="0"/>
@@ -40,10 +48,16 @@
         <Label Content="Cost:" Margin="47,0,0,15" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
         <!--<Label Content="Work on task with ID:" Margin="45,11,0,0" VerticalAlignment="Top" Grid.Row="5" Grid.Column="0" 
                Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTaskToVisibilityKey}}" />-->
-        <TextBox Margin="0,31,0,0" TextWrapping="Wrap" Width="164" VerticalAlignment="Top" Grid.Column="1"
+        <TextBox Margin="0,31,0,0" TextWrapping="Wrap" Width="200" VerticalAlignment="Top" Grid.Column="1"
                  Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                  IsEnabled="{Binding Id, Mode=OneTime , Converter={StaticResource ConvertTextToIsEnabledKey }}"/>
-        <TextBox Margin="3,25,0,0" TextWrapping="Wrap" Width="160" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"
+                  IsEnabled="{Binding Id, Mode=OneTime , Converter={StaticResource ConvertTextToIsEnabledKey }}">
+            <!--<TextBox.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            </TextBox.Resources>-->
+        </TextBox>
+        <TextBox Margin="0,26,0,0" TextWrapping="Wrap" Width="199" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"
                  Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="28" RenderTransformOrigin="0.5,0.5" >
 
             <TextBox.RenderTransform>
@@ -55,20 +69,44 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <TextBox TextWrapping="Wrap" Width="164" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"
-                 Text="{Binding  Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="26" />
-        <ComboBox HorizontalAlignment="Left" Width="164" VerticalAlignment="Center" Grid.Column="1"
+        <TextBox TextWrapping="Wrap" Width="200" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"
+                 Text="{Binding  Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="33" 
+                 />
+        <ComboBox HorizontalAlignment="Left" Width="200" VerticalAlignment="Center" Grid.Column="1"
                   ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3"/>
-        <TextBox Margin="0,23,0,0" TextWrapping="Wrap"  Width="164" VerticalAlignment="Top"
+        <TextBox Margin="0,23,0,0" TextWrapping="Wrap"  Width="200" VerticalAlignment="Top"
                  Text="{Binding  Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4" Grid.Column="1"/>
-       
-        <Button Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" Margin="164,24,0,0" Height="38" Width="93" VerticalAlignment="Top" Padding="5" 
+
+        <Button Grid.Row="5" HorizontalAlignment="Left" Margin="221,24,0,0" Height="38" Width="93" VerticalAlignment="Top" Padding="5" 
                  Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"                   
-                 Click="btnAddUpdate_Click" />
-        <Label Content="Engineer's Profile:" Margin="0,-7,0,0" VerticalAlignment="Top" Height="33" Width="175" HorizontalAlignment="Center"/>
-        <Ellipse HorizontalAlignment="Left" Height="26" Margin="240,1,0,0" VerticalAlignment="Top" Width="11" Fill="#FF4617E3" Grid.Column="2"/>
-        <Ellipse HorizontalAlignment="Left" Height="18" Margin="254,5,0,0" VerticalAlignment="Top" Width="7" Fill="#FFFF3700" Grid.Column="2"/>
-        <Ellipse HorizontalAlignment="Left" Height="18" Margin="230,5,0,0" VerticalAlignment="Top" Width="8" Fill="#FF36FF42" Grid.Column="2"/>
+                 Click="btnAddUpdate_Click" Grid.ColumnSpan="2" />
+        <!--<Label Content="Engineer's Profile:" Margin="0,-7,0,0" VerticalAlignment="Top" Height="33" Width="175" HorizontalAlignment="Center"/>-->
+        <Ellipse HorizontalAlignment="Left" Height="26" Margin="240,6,0,0" VerticalAlignment="Top" Width="11" Fill="#FF4617E3" Grid.Column="1"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="254,10,0,0" VerticalAlignment="Top" Width="7" Fill="#FFFF3700" Grid.Column="1"/>
+        <Ellipse HorizontalAlignment="Left" Height="18" Margin="230,10,0,0" VerticalAlignment="Top" Width="8" Fill="#FF36FF42" Grid.Column="1"/>
+        <Image HorizontalAlignment="Left" Height="16" Margin="23,36,0,0" VerticalAlignment="Top" Width="20" RenderTransformOrigin="0.3,0.566" Source="/Engineer/fingerprint.png"/>
+        <Image HorizontalAlignment="Left" Height="20" Margin="23,19,0,0" Grid.Row="1" VerticalAlignment="Top" Width="20" Source="/Engineer/id-badge.png"/>
+        <Image HorizontalAlignment="Left" Height="19" Margin="20,20,0,0" Grid.Row="4" VerticalAlignment="Top" Width="32" Source="/Engineer/coins.png"/>
+        <Image HorizontalAlignment="Left" Height="16" Margin="22,20,0,0" Grid.Row="3" VerticalAlignment="Top" Width="21" Source="/Engineer/water-rise.png"/>
+        <Image HorizontalAlignment="Left" Height="20" Margin="22,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="25" Source="/Engineer/envelope.png"/>
+
+        <!--<TextBox Name="myTextBox" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="2" Margin="20,31,0,19" Width="116">
+            <TextBox.Text>
+                <Binding Path="SomeProperty" UpdateSourceTrigger="LostFocus">
+                    <Binding.ValidationRules>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>-->
+
+
+
 
 
         <!--<TextBox Margin="0,21,0,0" TextWrapping="Wrap" Width="164" VerticalAlignment="Top" Grid.Column="1" Grid.Row="5"

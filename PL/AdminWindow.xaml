@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AdminWindow" 
-        Icon="/project-management-icon-png-16.jpg"
+        Title="Admin View" 
+        Icon="/admin-alt.png"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Height="500" Width="850">
+        Height="550" Width="850">
 
-    <!--DarkCyan-->
+
     <Window.Resources>
         <Style TargetType="Button" >
             <Setter Property="Background" Value="#FFD9D9D9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <!--Using ControlTemplate-->
@@ -50,40 +51,30 @@
 
         <Label Content="Welcome to Our Project Management Hub" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="521" FontSize="25" Foreground="Black" Height="48" Margin="18,10,0,0"/>
         <!--Button to display the engineer list window-->
-        <Button Click="btnEngineers_Click"  Grid.Row="2" Content="Handle Engineers"  FontWeight="Bold"  HorizontalAlignment="Left" Height="50" Width="112" Margin="350,32,0,14" RenderTransformOrigin="-0.76,0.465"/>
+        <Button Click="btnEngineers_Click"  Grid.Row="2" Content="Handle Engineers"  FontWeight="Bold"  HorizontalAlignment="Left" Height="50" Width="112" Margin="344,27,0,19" RenderTransformOrigin="-0.76,0.465"/>
         <!--Button for initializing the database-->
-        <Button Click="btnInitialize_Click" Grid.Row="2" Content="Initialize" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="112" Margin="67,31,0,15" RenderTransformOrigin="3.319,-2.026"/>
+        <Button Click="btnInitialize_Click" Grid.Row="2" Content="Initialize DB" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="112" Margin="214,27,0,19" RenderTransformOrigin="3.319,-2.026"/>
         <!--Button to reset database-->
-        <Button Click="btnReset_Click" Grid.Row="2" Content="Reset" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="118" Margin="203,32,0,14" RenderTransformOrigin="0.591,0.506"/>
+        <Button Click="btnReset_Click" Grid.Row="2" Content="Reset DB" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Width="118" Margin="75,27,0,19" RenderTransformOrigin="0.591,0.506"/>
 
-        <Button  Click="btnTasks_Click" Content="Handle Tasks" FontWeight="Bold" HorizontalAlignment="Left" Margin="492,32,0,0" VerticalAlignment="Top" Height="50" Width="117"   RenderTransformOrigin="0.591,0.506" Grid.Row="2"/>
-        <Button Content="Gantt Chart" Margin="630,34,23,0" VerticalAlignment="Top" FontWeight="Bold" Height="47" Click="btnGant_Click" Grid.Row="2"/>
-
-
-
+        <Button  Click="btnTasks_Click" Content="Handle Tasks" FontWeight="Bold" HorizontalAlignment="Left" Margin="479,27,0,0" VerticalAlignment="Top" Height="50" Width="117"   RenderTransformOrigin="0.591,0.506" Grid.Row="2"/>
+        <Button Content="Gantt Chart" Margin="615,27,38,0" VerticalAlignment="Top" FontWeight="Bold" Height="47" Click="btnGant_Click" Grid.Row="2"/>
 
 
         <Label Content="Enter start project date:" Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibilityKey}}" VerticalAlignment="Top" FontWeight="Bold" Margin="306,29,298,0"  Width="160" Background="Transparent" Grid.Row="1" />
-
-
-        <CheckBox IsChecked="False" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="CreateSchedule"  Content="Create Schedule" Height="26" Foreground="Black" FontSize="16" FontFamily="Lucida Sans Unicode" FontWeight="Bold" VerticalContentAlignment="Center" BorderBrush="Black" Margin="30,0,0,123"/>
-
-
-
-
-
-        <Button  Content="Add date" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="btnSchadule_Click" Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibilityKey}}"
+        <CheckBox IsChecked="False" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="CreateSchedule"  Content="Create Schedule" Height="26" Foreground="Black" FontSize="18"  FontWeight="Bold" VerticalContentAlignment="Center" BorderBrush="Black" Margin="30,0,0,123"/>
+        
+        <Button  Content="Add date" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="btnSchadule_Click" 
+                 Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibilityKey}}"
                  BorderBrush="White" BorderThickness="1,3,1,3" Margin="350,108,0,0" Grid.Row="1" Height="36" />
 
-        <DatePicker  Margin="306,62,0,0" Grid.Row="1"  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="30"  SelectedDate="{Binding startProject, Mode=TwoWay}" RenderTransformOrigin="0.5,0.5" Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibilityKey}}"  />
+        <DatePicker  Margin="306,62,0,0" Grid.Row="1"  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="30" 
+                     SelectedDate="{Binding startProject, Mode=TwoWay}" RenderTransformOrigin="0.5,0.5" 
+                     Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibilityKey}}"/>
+
         <Ellipse HorizontalAlignment="Left" Height="33" Margin="50,4,0,0" VerticalAlignment="Top" Width="14" Fill="#FF4617E3" Grid.Column="1"/>
         <Ellipse HorizontalAlignment="Left" Height="21" Margin="66,10,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFF3700" Grid.Column="1"/>
         <Ellipse HorizontalAlignment="Center" Height="21" Margin="0,10,0,0" VerticalAlignment="Top" Width="10" Fill="#FF36FF42" Grid.Column="1"/>
-        <!---->
-
-        <!--<DatePicker HorizontalAlignment="Left" Margin="321,144,0,0" Grid.Row="1" VerticalAlignment="Top" SelectedDate="{Binding startProject, Mode=TwoWay}"    Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibilityKey}}" />-->
-
-
 
 
         <Grid.Background>
